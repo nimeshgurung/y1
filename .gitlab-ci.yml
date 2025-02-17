@@ -1,0 +1,32 @@
+stages:
+- build
+- lint
+- deploy
+
+lint:
+  stage: lint
+  image: container-registry.ubs.net/ubs/ibdevops/wheelwright-node-20:2024.12
+  script:
+  - npm ci
+  - npm run lint
+  - npm run check-types
+
+build_storybook:
+  stage: build
+  image: container-registry.ubs.net/ubs/ibdevops/wheelwright-node-20:2024.12
+  script:
+  - npm ci
+  - npm run build-storybook
+  artifacts:
+    paths:
+    - storybook-static
+
+pages:
+  stage: deploy
+  script:
+  - mv storybook-static public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main

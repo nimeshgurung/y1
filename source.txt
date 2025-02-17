@@ -1,0 +1,5156 @@
+<script>
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+
+Additional Info:
+----------------
+
+================================================================
+Directory Structure
+================================================================
+.eslintrc.js
+.gitignore
+.gitlab-ci.yml
+.storybook/.global.d.ts
+.storybook/main.ts
+.storybook/preview-head.html
+.storybook/preview.tsx
+global.d.ts
+package.json
+pretteir.config.mjs
+README.md
+src/components/AppLogo.stories.tsx
+src/components/AppLogo.tsx
+src/components/AttributeChip/AttributeChip.stories.tsx
+src/components/AttributeChip/AttributeChip.tsx
+src/components/Button/Button.stories.tsx
+src/components/Button/Button.tsx
+src/components/Card/Card.stories.tsx
+src/components/Card/Card.tsx
+src/components/Card/CardBody.tsx
+src/components/Card/CardFooter.stories.tsx
+src/components/Card/CardFooter.tsx
+src/components/Card/CardHeader.stories.tsx
+src/components/Card/CardHeader.tsx
+src/components/Checkbox/Checkbox.stories.tsx
+src/components/Checkbox/Checkbox.tsx
+src/components/ContextMenu/ContextMenu.stories.tsx
+src/components/ContextMenu/ContextMenu.tsx
+src/components/ContextMenu/ContextMenuItem.tsx
+src/components/ContextMenu/ContextMenuTab.tsx
+src/components/ContextMenu/index.ts
+src/components/ControlGroup/ControlGroup.stories.tsx
+src/components/ControlGroup/ControlGroup.tsx
+src/components/DateChip/DateChip.stories.tsx
+src/components/DateChip/DateChip.tsx
+src/components/DateChip/index.ts
+src/components/IconButton/IconButton.stories.tsx
+src/components/IconButton/IconButton.tsx
+src/components/Initiative/InitiativeCardLayout.tsx
+src/components/Initiative/InitiativeCardPage.tsx
+src/components/Initiative/InitiativeSetup.tsx
+src/components/Initiative/InitiativeSetupLayout.tsx
+src/components/Navigation/AppHeader.stories.tsx
+src/components/Navigation/AppHeader.tsx
+src/components/Navigation/PrimaryNavigation.stories.tsx
+src/components/Navigation/PrimaryNavigation.tsx
+src/components/Navigation/PrimaryNavigationItem.stories.tsx
+src/components/Navigation/PrimaryNavigationItem.tsx
+src/components/Navigation/SecondaryNavigation.stories.tsx
+src/components/Navigation/SecondaryNavigation.tsx
+src/components/Navigation/SecondaryNavigationItem.stories.tsx
+src/components/Navigation/SecondaryNavigationItem.tsx
+src/components/ProgressBar/ProgressBar.stories.tsx
+src/components/ProgressBar/ProgressBar.tsx
+src/components/RAGStatusChip/index.ts
+src/components/RAGStatusChip/RAGStatusChip.stories.tsx
+src/components/RAGStatusChip/RAGStatusChip.tsx
+src/components/StatusChip/StatusChip.stories.tsx
+src/components/StatusChip/StatusChip.tsx
+src/components/StatusProgress/StatusProgress.tsx
+src/components/WorkItemSelectionCard/WorkItemSelectionCard.stories.tsx
+src/components/WorkItemSelectionCard/WorkItemSelectionCard.tsx
+src/components/WorkItemSelectionList/WorkItemSelectionList.stories.tsx
+src/components/WorkItemSelectionList/WorkItemSelectionList.tsx
+src/global.d.ts
+src/icons/Logomark.svg
+src/stories/Colors.stories.tsx
+src/stories/pages/InitiativeCardPage.stories.tsx
+src/stories/pages/InitiativePage.stories.tsx
+src/stories/Typography.stories.tsx
+src/theme/theme.ts
+tsconfig.json
+tsconfig.node.json
+
+================================================================
+Files
+================================================================
+
+================
+File: .eslintrc.js
+================
+/* eslint-env node */
+module.exports = {
+  root: true,
+  ignorePatterns: [
+    "**/*.d.ts",
+    "build/",
+    "vendor/",
+    "dist/",
+    "coverage/",
+    "docs/",
+    "html-report/",
+    "automation/", // TODO: automation tests needs it's own ESLint config with ESLint Playwright files
+  ],
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  globals: {
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly",
+    process: "readonly",
+    $TSFixMe: "readonly",
+    $TSFixMeFunction: "readonly",
+  },
+  overrides: [
+    {
+      files: ["*.js", "*.ts", "*.jsx", "*.tsx", "*.mjs", "*.cjs"],
+      extends: [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended", // should always be last
+      ],
+      parser: "@typescript-eslint/parser",
+      plugins: [
+        "@typescript-eslint",
+        "react-hooks",
+        "simple-import-sort",
+        "unused-imports",
+      ],
+      rules: {
+        "no-restricted-imports": [
+          "warn",
+          {
+            paths: [
+              {
+                name: "lodash",
+                message:
+                  "Please use `import [method] from 'lodash/[method]'` instead.",
+              },
+              {
+                name: "@mui/material",
+                message:
+                  "Please use `import [package] from '@mui/material/[package]'` instead.",
+              },
+              {
+                name: "@mui/icons-material",
+                message:
+                  "Please use `import [package] from '@mui/icons-material/[package]'` instead.",
+              },
+              {
+                name: "react",
+                importNames: ["default"],
+                message:
+                  "Please use `import { [function] } from 'react'` instead.",
+              },
+            ],
+            patterns: [
+              { group: ["!lodash/*"] },
+              { group: ["!@mui/material/*"] },
+              {
+                group: ["moment"],
+                message:
+                  "Deprecated. Please use `import dayjs from 'utils/dayjs` instead.",
+              },
+            ],
+          },
+        ],
+        "no-console": "warn",
+        "no-empty-function": "off",
+        "react/react-in-jsx-scope": "off",
+        "simple-import-sort/imports": [
+          "warn",
+          {
+            groups: [
+              [
+                "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)",
+              ],
+              ["^react", "^@?\\w"],
+              [
+                "^(assets|components|contexts|hooks|modules|pages|persistedState|services|store|types|utils)(/.*|$)",
+              ],
+              ["^\\u0000"],
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              ["^.+\\.s?css$"],
+            ],
+          },
+        ],
+        "simple-import-sort/exports": "warn",
+        "unused-imports/no-unused-imports": "warn",
+        "prettier/prettier": [
+          "warn",
+          {
+            endOfLine: "auto",
+          },
+        ],
+
+        // React rules
+        "react/display-name": "off",
+        "react/no-unescaped-entities": "off",
+        "react/prop-types": "off",
+
+        // TypeScript rules
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            argsIgnorePattern: "^_",
+            varsIgnorePattern: "^_",
+            caughtErrorsIgnorePattern: "^_",
+          },
+        ],
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+      },
+      settings: {
+        react: {
+          version: "detect",
+        },
+      },
+    },
+  ],
+};
+
+================
+File: .gitignore
+================
+# Dependencies
+node_modules/
+
+# Build output
+build/
+storybook-static/
+
+# Coverage directory (if tests are run)
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Miscellaneous
+.DS_Store
+
+================
+File: .gitlab-ci.yml
+================
+stages:
+- build
+- lint
+- deploy
+
+lint:
+  stage: lint
+  image: container-registry.ubs.net/ubs/ibdevops/wheelwright-node-20:2024.12
+  script:
+  - npm ci
+  - npm run lint
+  - npm run check-types
+
+build_storybook:
+  stage: build
+  image: container-registry.ubs.net/ubs/ibdevops/wheelwright-node-20:2024.12
+  script:
+  - npm ci
+  - npm run build-storybook
+  artifacts:
+    paths:
+    - storybook-static
+
+pages:
+  stage: deploy
+  script:
+  - mv storybook-static public
+  artifacts:
+    paths:
+    - public
+  only:
+  - main
+
+================
+File: .storybook/.global.d.ts
+================
+import "@mui/material/Typography";
+import "@mui/material/styles";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple: {
+      10: string; // color/purple/10
+      20: string; // color/purple/20
+    };
+    orange: {
+      10: string; // color/orange/10
+      20: string; // color/orange/20
+    };
+    green: {
+      10: string; // color/green/10
+      20: string; // color/green/20
+    };
+    yellow: {
+      10: string; // color/yellow/10
+      20: string; // color/yellow/20
+    };
+    brown: {
+      10: string; // color/brown/10
+    };
+    pink: {
+      10: string; // color/pink/10
+      20: string; // color/pink/20
+    };
+    blue: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+    };
+    red: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface PaletteOptions {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple?: {
+      10: string;
+      20: string;
+    };
+    orange?: {
+      10: string;
+      20: string;
+    };
+    green?: {
+      10: string;
+      20: string;
+    };
+    yellow?: {
+      10: string;
+      20: string;
+    };
+    brown?: {
+      10: string;
+    };
+    pink?: {
+      10: string;
+      20: string;
+    };
+    blue?: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+    };
+    red?: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface TypographyVariants {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    // Disable default variants
+    h1: false;
+    h2: false;
+    h3: false;
+    h4: false;
+    h5: false;
+    h6: false;
+    subtitle1: false;
+    subtitle2: false;
+    body1: false;
+    body2: false;
+    caption: false;
+    button: false;
+    overline: false;
+
+    "body.standard": true;
+    "body.standard.bold": true;
+    "subtitle.standard": true;
+    "subtitle.standard.bold": true;
+    "caption.standard": true;
+    "caption.small": true;
+    "button.standard": true;
+    "button.standard.bold": true;
+  }
+}
+
+================
+File: .storybook/main.ts
+================
+module.exports = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@chromatic-com/storybook",
+  ],
+
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+
+  docs: {},
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+  },
+};
+
+================
+File: .storybook/preview-head.html
+================
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+
+  /* For docs preview */
+  .sbdocs-preview {
+    background-color: #f5f5f5 !important;
+  }
+</style>
+
+================
+File: .storybook/preview.tsx
+================
+import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../src/theme/theme"; // Your theme configuration
+import CssBaseline from "@mui/material/CssBaseline";
+import { IconoirProvider } from "iconoir-react";
+
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  backgrounds: {
+    values: [
+      {
+        name: "Light",
+        color: theme.palette.neutral[20],
+      },
+    ],
+  },
+};
+
+export const decorators = [
+  (Story) => (
+    <ThemeProvider theme={theme}>
+      <IconoirProvider
+        iconProps={{
+          color: theme.palette.custom.icon.standard,
+          strokeWidth: 1.8,
+          width: 16,
+          height: 16,
+        }}
+      >
+        <CssBaseline />
+        <Story />
+      </IconoirProvider>
+    </ThemeProvider>
+  ),
+];
+
+export const tags = ["autodocs"];
+
+================
+File: global.d.ts
+================
+import "@mui/material/Typography";
+import "@mui/material/styles";
+import React from "react";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple: {
+      10: string; // color/purple/10
+      20: string; // color/purple/20
+    };
+    orange: {
+      10: string; // color/orange/10
+      20: string; // color/orange/20
+    };
+    green: {
+      10: string; // color/green/10
+      20: string; // color/green/20
+    };
+    yellow: {
+      10: string; // color/yellow/10
+      20: string; // color/yellow/20
+    };
+    brown: {
+      10: string; // color/brown/10
+    };
+    pink: {
+      10: string; // color/pink/10
+      20: string; // color/pink/20
+    };
+    blue: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+    };
+    red: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface PaletteOptions {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple?: {
+      10: string;
+      20: string;
+    };
+    orange?: {
+      10: string;
+      20: string;
+    };
+    green?: {
+      10: string;
+      20: string;
+    };
+    yellow?: {
+      10: string;
+      20: string;
+    };
+    brown?: {
+      10: string;
+    };
+    pink?: {
+      10: string;
+      20: string;
+    };
+    blue?: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+    };
+    red?: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface TypographyVariants {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+    emoji: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+    emoji: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    // Disable default variants
+    h1: false;
+    h2: false;
+    h3: false;
+    h4: false;
+    h5: false;
+    h6: false;
+    subtitle1: false;
+    subtitle2: false;
+    body1: false;
+    body2: false;
+    caption: false;
+    button: false;
+    overline: false;
+
+    "body.standard": true;
+    "body.standard.bold": true;
+    "subtitle.standard": true;
+    "subtitle.standard.bold": true;
+    "caption.standard": true;
+    "caption.small": true;
+    "button.standard": true;
+    "button.standard.bold": true;
+    emoji: true;
+  }
+}
+
+================
+File: package.json
+================
+{
+  "name": "blueprint-component-library",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "prettier:fix": "prettier --write .",
+    "lint": "eslint src",
+    "eslint:fix": "eslint --fix .",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^5.11.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "iconoir-react": "^7.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "7.1.3",
+    "tss-react": "^4.9.3"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.3",
+    "@storybook/addon-interactions": "^8.5.3",
+    "@storybook/addon-links": "^8.5.3",
+    "@storybook/react": "^8.5.3",
+    "@storybook/react-vite": "^8.5.3",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-react": "7.34.1",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-simple-import-sort": "12.1.0",
+    "eslint-plugin-testing-library": "6.2.2",
+    "eslint-plugin-unused-imports": "3.2.0",
+    "prettier": "3.2.5",
+    "typescript": "5.4.5",
+    "typescript-eslint": "7.9.0",
+    "vite": "5.2.10"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+
+================
+File: pretteir.config.mjs
+================
+/** @type {import("prettier").Config} */
+const config = {
+  trailingComma: "es5",
+  singleQuote: true,
+  printWidth: 80,
+  endOfLine: "lf",
+  tabWidth: 2,
+};
+
+export default config;
+
+================
+File: README.md
+================
+# blueprint-component-library
+
+## Project Description
+
+The blueprint-component-library is a component library designed to provide reusable and customizable UI components for the Blueprint App. It includes a variety of components, designs, icons, and themes.
+
+## Running the Project
+
+To run the project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://devcloud.ubs.net/ubs/ib/engineering-productivity/agile-tooling-coe/blueprint/blueprint/blueprint-component-library.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd blueprint-component-library
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run storybook
+   ```
+
+5. Open your browser and navigate to `http://localhost:6006` to view the project.
+
+## Folder Structure
+
+The project has the following folder structure:
+
+```
+src/
+├── components/
+│   ├── AppLogo.stories.tsx
+│   ├── AppLogo.tsx
+│   ├── AttributeChip/
+│   │   ├── AttributeChip.stories.tsx
+│   │   ├── AttributeChip.tsx
+│   ├── Card/
+│   │   ├── Card.stories.tsx
+│   │   ├── Card.tsx
+│   ├── DateChip/
+│   │   ├── DateChip.stories.tsx
+│   │   ├── DateChip.tsx
+│   │   ├── index.ts
+│   ├── Initiative/
+│   │   ├── InitiativeCardLayout.tsx
+│   │   ├── InitiativeCardPage.tsx
+│   │   ├── InitiativeSetup.tsx
+│   │   ├── InitiativeSetupLayout.tsx
+│   ├── Navigation/
+│   │   ├── PrimaryNavigation.stories.tsx
+│   │   ├── PrimaryNavigation.tsx
+│   │   ├── PrimaryNavigationItem.stories.tsx
+│   │   ├── PrimaryNavigationItem.tsx
+│   │   ├── SecondaryNavigation.stories.tsx
+│   │   ├── SecondaryNavigation.tsx
+│   │   ├── SecondaryNavigationItem.stories.tsx
+│   │   ├── SecondaryNavigationItem.tsx
+│   ├── ProgressBar/
+│   │   ├── ProgressBar.stories.tsx
+│   │   ├── ProgressBar.tsx
+│   ├── RAGStatusChip/
+│   │   ├── index.ts
+│   │   ├── RAGStatusChip.stories.tsx
+│   │   ├── RAGStatusChip.tsx
+│   ├── StatusChip/
+│   │   ├── StatusChip.stories.tsx
+│   │   ├── StatusChip.tsx
+├── designs/
+│   ├── colors/
+│   ├── navigation/
+├── icons/
+│   ├── Logomark.svg
+├── stories/
+│   ├── Colors.stories.tsx
+│   ├── Typography.stories.tsx
+│   ├── pages/
+│   │   ├── InitiativeCardPage.stories.tsx
+│   │   ├── InitiativePage.stories.tsx
+├── theme/
+│   ├── theme.ts
+```
+
+================
+File: src/components/AppLogo.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { AppLogo } from "./AppLogo";
+
+const meta = {
+  title: "Components/AppLogo",
+  component: () => {
+    return <AppLogo />;
+  },
+  parameters: {
+    layout: "centered",
+  },
+} satisfies Meta<typeof AppLogo>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    className: "",
+  },
+};
+
+export const Large: Story = {
+  args: {
+    className: "w-32 h-32",
+  },
+};
+
+================
+File: src/components/AppLogo.tsx
+================
+import { makeStyles } from "tss-react/mui";
+
+interface AppLogoProps {
+  className?: string;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  appIcon: {
+    width: theme.spacing(8), // 32px
+    height: theme.spacing(8), // 32px
+    borderRadius: theme.spacing(8), // 8px
+    backgroundColor: theme.palette.primary.main,
+    margin: theme.spacing(2, "auto"),
+  },
+}));
+
+export function AppLogo({ className }: AppLogoProps) {
+  const { cx, classes } = useStyles();
+
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cx([classes.appIcon, className])}
+    >
+      <g id="Logomark">
+        <circle id="Circle" cx="12" cy="12" r="12" />
+        <path
+          id="Shape"
+          d="M9 6.49106C9 6.21986 9.21986 6 9.49106 6H13.5C15.1569 6 16.5 7.34315 16.5 9C16.5 10.6569 15.1569 12 13.5 12H9V6.49106Z"
+          fill="white"
+        />
+        <path
+          id="Shape_2"
+          d="M9 12H13.5C15.1569 12 16.5 13.3431 16.5 15C16.5 16.6569 15.1569 18 13.5 18H9.49106C9.21986 18 9 17.7801 9 17.5089V12Z"
+          fill="#C1D5F3"
+        />
+      </g>
+    </svg>
+  );
+}
+
+================
+File: src/components/AttributeChip/AttributeChip.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+
+import type { TeamNameChipProps } from "./AttributeChip";
+import TeamNameChip from "./AttributeChip";
+
+export default {
+  title: "Components/AttributeChip",
+  component: TeamNameChip,
+  argTypes: {
+    onClick: { action: "Chip clicked" },
+  },
+} as Meta<typeof TeamNameChip>;
+
+const Template: StoryFn<TeamNameChipProps> = (args) => (
+  <TeamNameChip {...args} />
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  name: "Team Name",
+  dotColor: "#9155FD",
+  dotChar: "T",
+};
+
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  name: "Custom Color",
+  dotColor: "#00FF00",
+  dotChar: "C",
+};
+
+export const WithoutDotChar = Template.bind({});
+WithoutDotChar.args = {
+  name: "No Dot",
+  dotColor: "#FF00FF",
+  dotChar: "",
+};
+
+================
+File: src/components/AttributeChip/AttributeChip.tsx
+================
+import Chip from "@mui/material/Chip";
+import IconButton from "@mui/material/IconButton";
+import { makeStyles } from "tss-react/mui";
+
+interface StyleProps {
+  dotColor: string;
+}
+
+const useStyles = makeStyles<StyleProps>()((theme, { dotColor }) => ({
+  iconButton: {
+    padding: 0,
+    borderRadius: theme.spacing(2),
+  },
+  chip: {
+    backgroundColor: theme.palette.neutral.white,
+    border: "1px solid",
+    borderColor: theme.palette.neutral[40],
+    borderRadius: theme.spacing(5),
+    padding: `${theme.spacing(0.5)} ${theme.spacing(2)} ${theme.spacing(0.5)} ${theme.spacing(0.5)}`,
+    height: theme.spacing(6),
+    display: "inline-flex",
+    alignItems: "center",
+    transition: "all 0.3s ease",
+    "&:hover": {
+      backgroundColor: theme.palette.neutral[30],
+    },
+    "& .MuiChip-icon": {
+      margin: 0,
+      marginRight: theme.spacing(1),
+      padding: 0,
+      color: theme.palette.neutral.white,
+    },
+  },
+  dot: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+    backgroundColor: dotColor,
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 0,
+    marginRight: theme.spacing(0.5),
+    flexShrink: 0,
+    color: theme.palette.neutral.white,
+    fontSize: theme.spacing(2),
+    fontWeight: "bold",
+    transition: "transform 0.3s ease",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  },
+  label: {
+    color: theme.palette.neutral[70],
+    padding: 0,
+    ...theme.typography["caption.small"],
+  },
+}));
+
+export interface TeamNameChipProps {
+  name?: string;
+  dotColor?: string;
+  dotChar?: string;
+  onClick?: () => void;
+}
+
+export default function TeamNameChip({
+  name = "TEAM NAME",
+  dotColor = "#9155FD",
+  dotChar = "",
+  onClick,
+}: TeamNameChipProps) {
+  const { classes } = useStyles({ dotColor });
+
+  // Ensure we only use the first character and capitalize it
+  const displayChar = dotChar.charAt(0).toUpperCase();
+
+  return (
+    <IconButton onClick={onClick} className={classes.iconButton}>
+      <Chip
+        icon={<span className={classes.dot}>{displayChar}</span>}
+        label={name.toUpperCase()}
+        classes={{
+          root: classes.chip,
+          label: classes.label,
+        }}
+      />
+    </IconButton>
+  );
+}
+
+================
+File: src/components/Button/Button.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+import { Calendar } from "iconoir-react";
+
+import { Button } from "./Button";
+
+export default {
+  title: "Components/Button",
+  component: Button,
+  args: {
+    children: "Button", // default label for all stories
+    disabled: false,
+  },
+} as Meta<typeof Button>;
+
+const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  variant: "primary",
+  children: "Primary",
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  variant: "secondary",
+  children: "Secondary",
+};
+
+export const Tertiary = Template.bind({});
+Tertiary.args = {
+  variant: "tertiary",
+  children: "Tertiary",
+};
+
+export const PrimaryWithStartIcon = Template.bind({});
+PrimaryWithStartIcon.args = {
+  variant: "primary",
+  children: "Primary",
+  startIcon: <Calendar />,
+};
+
+export const SecondaryWithStartIcon = Template.bind({});
+SecondaryWithStartIcon.args = {
+  variant: "secondary",
+  children: "Secondary",
+  startIcon: <Calendar />,
+};
+
+export const TertiaryWithStartIcon = Template.bind({});
+TertiaryWithStartIcon.args = {
+  variant: "tertiary",
+  children: "Tertiary",
+  startIcon: <Calendar />,
+};
+
+export const PrimaryWithEndIcon = Template.bind({});
+PrimaryWithEndIcon.args = {
+  variant: "primary",
+  children: "Primary",
+  endIcon: <Calendar />,
+};
+
+export const SecondaryWithEndIcon = Template.bind({});
+SecondaryWithEndIcon.args = {
+  variant: "secondary",
+  children: "Secondary",
+  endIcon: <Calendar />,
+};
+
+export const TertiaryWithEndIcon = Template.bind({});
+TertiaryWithEndIcon.args = {
+  variant: "tertiary",
+  children: "Tertiary",
+  endIcon: <Calendar />,
+};
+
+================
+File: src/components/Button/Button.tsx
+================
+import type { ButtonProps as MuiButtonProps } from "@mui/material/Button";
+import MuiButton from "@mui/material/Button";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles({
+  name: "Button",
+})((theme) => {
+  return {
+    root: {
+      padding: theme.spacing(3),
+      borderRadius: theme.spacing(1),
+      backgroundColor: "transparent",
+      border: "1px solid transparent",
+      cursor: "pointer",
+    },
+    text: {
+      textTransform: "none",
+      ...theme.typography["button.standard"],
+    },
+    primary: {
+      backgroundColor: theme.palette.blue[60],
+      color: theme.palette.neutral.white,
+      "& path": {
+        color: theme.palette.neutral.white,
+      },
+      "&:hover": {
+        backgroundColor: theme.palette.blue[50],
+      },
+      "&:active": {
+        backgroundColor: theme.palette.blue[70],
+        border: `1px solid ${theme.palette.custom.border.standard}`,
+        ...theme.typography["button.standard.bold"],
+      },
+      "&:disabled": {
+        backgroundColor: theme.palette.neutral[30],
+        color: theme.palette.neutral[60],
+      },
+    },
+    secondary: {
+      // color: theme.palette.custom.text.strong,
+      border: `1px solid ${theme.palette.custom.border.standard}`,
+      backgroundColor: theme.palette.neutral.white,
+      "&:hover": {
+        backgroundColor: theme.palette.neutral[20],
+      },
+      "&:active": {
+        backgroundColor: theme.palette.neutral.white,
+      },
+      "&:disabled": {
+        backgroundColor: theme.palette.neutral[30],
+        color: theme.palette.neutral[60],
+      },
+    },
+    tertiary: {
+      color: theme.palette.custom.text.strong,
+      "&:hover": {
+        backgroundColor: theme.palette.neutral[20],
+      },
+      "&:active": {
+        backgroundColor: theme.palette.neutral.white,
+        border: `1px solid ${theme.palette.custom.border.standard}`,
+        color: theme.palette.custom.text.strong,
+      },
+      "&:disabled": {
+        backgroundColor: theme.palette.neutral[30],
+        color: theme.palette.neutral[60],
+      },
+    },
+    startIcon: {
+      marginLeft: 0,
+      marginRight: theme.spacing(1),
+    },
+    endIcon: {
+      marginRight: 0,
+      marginLeft: theme.spacing(1),
+    },
+  };
+});
+
+export type ButtonProps = Omit<MuiButtonProps, "variant"> & {
+  variant?: "primary" | "secondary" | "tertiary";
+};
+
+export const Button = ({
+  variant = "primary",
+  children,
+  ...props
+}: ButtonProps) => {
+  const { classes, cx } = useStyles();
+
+  return (
+    <MuiButton
+      variant="text"
+      classes={{
+        root: cx([
+          classes.root,
+          variant === "primary" && classes.primary,
+          variant === "secondary" && classes.secondary,
+          variant === "tertiary" && classes.tertiary,
+        ]),
+        text: classes.text,
+        startIcon: classes.startIcon,
+        endIcon: classes.endIcon,
+      }}
+      disableRipple
+      {...props}
+    >
+      {children}
+    </MuiButton>
+  );
+};
+
+================
+File: src/components/Card/Card.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Card } from "./Card";
+
+const meta: Meta<typeof Card> = {
+  title: "Components/Card",
+  component: Card,
+  parameters: {
+    layout: "centered",
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Card>;
+
+export const Initiative: Story = {
+  args: {
+    type: "Objective",
+    name: "Name",
+    teamName: "MANAGER",
+    date: "DD MMM YY",
+    onAddClick: () => {},
+  },
+};
+
+export const Work: Story = {
+  args: {
+    type: "Key Result",
+    name: "Name",
+    teamName: "MANAGER",
+    date: "DD MMM YY",
+    onAddClick: () => {},
+  },
+};
+
+================
+File: src/components/Card/Card.tsx
+================
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "tss-react/mui";
+
+import type { RAGStatus } from "../RAGStatusChip";
+import type { Status } from "../StatusChip/StatusChip";
+
+import CardBody from "./CardBody";
+import CardHeader from "./CardHeader";
+
+export interface CardProps {
+  type: "Key Result" | "Objective"; // extend as needed
+  status?: Status;
+  ragStatus?: RAGStatus;
+  lastUpdated?: string;
+  name?: string;
+  teamName?: string;
+  teamInitial?: string;
+  date?: string;
+  progress?: number;
+  onAddClick?: () => void;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  card: {
+    minWidth: 290,
+    backgroundColor: theme.palette.neutral.white,
+    boxShadow: "0px 1px 2px rgba(28, 28, 28, 0.12)",
+    borderRadius: theme.spacing(2),
+    overflow: "hidden",
+  },
+  CardHeader: {
+    height: "36px",
+    padding: "6px 8px 6px 6px",
+    backgroundColor: theme.palette.neutral[10],
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  iconLabel: {
+    flex: "1 1 0",
+    height: "24px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: theme.spacing(1.5),
+  },
+  signpostingIcon: {
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    display: "inline-flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconText: {
+    width: "16px",
+    height: "16px",
+    textAlign: "center",
+    color: theme.palette.neutral[70],
+    fontSize: "16px",
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    lineHeight: "16px",
+    letterSpacing: "0.32px",
+  },
+  cardType: {
+    color: theme.palette.neutral[70],
+  },
+  content: {
+    padding: theme.spacing(4, 5, 5, 5),
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(4),
+  },
+  statusBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: theme.spacing(1),
+  },
+  statusTags: {
+    display: "flex",
+    gap: theme.spacing(1),
+  },
+  name: {
+    color: theme.palette.neutral[70],
+    fontSize: 12,
+    lineHeight: theme.spacing(4),
+    letterSpacing: 0.24,
+  },
+  attributes: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  leading: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+  },
+  progress: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    color: theme.palette.neutral[60],
+    fontSize: 11,
+    fontWeight: 500,
+    lineHeight: theme.spacing(3.5),
+  },
+  progressCircle: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    borderRadius: "50%",
+    border: `1px solid ${theme.palette.blue[50]}`,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+
+export const Card: React.FC<CardProps> = ({
+  type = "Key Result",
+  status = "planned",
+  ragStatus = "green",
+  lastUpdated = "Just now",
+  name = "Name",
+  teamName = "TEAM NAME",
+  teamInitial = "C",
+  date = "DD MMM YY",
+  progress = 0,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <Paper className={classes.card} elevation={0}>
+      <CardHeader type={type} />
+      <CardBody
+        status={status}
+        ragStatus={ragStatus}
+        lastUpdated={lastUpdated}
+        name={name}
+        teamName={teamName}
+        teamInitial={teamInitial}
+        date={date}
+        progress={progress}
+      />
+    </Paper>
+  );
+};
+
+================
+File: src/components/Card/CardBody.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+import { theme } from "../../theme/theme";
+import TeamNameChip from "../AttributeChip/AttributeChip";
+import { DateChip } from "../DateChip/DateChip";
+import { RAGStatusChip } from "../RAGStatusChip/RAGStatusChip";
+import type { Status } from "../StatusChip/StatusChip";
+import { StatusChip } from "../StatusChip/StatusChip";
+
+const useStyles = makeStyles()((theme) => ({
+  content: {
+    padding: theme.spacing(4, 5, 5, 5),
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(4),
+  },
+  statusBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: theme.spacing(1),
+  },
+  statusTags: {
+    display: "flex",
+    gap: theme.spacing(1),
+  },
+  name: {
+    color: theme.palette.neutral[70],
+    fontSize: 12,
+    lineHeight: theme.spacing(4),
+    letterSpacing: 0.24,
+  },
+  attributes: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  leading: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+  },
+  progress: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    color: theme.palette.neutral[60],
+    fontSize: 11,
+    fontWeight: 500,
+    lineHeight: theme.spacing(3.5),
+  },
+  progressCircle: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    borderRadius: "50%",
+    border: `1px solid ${theme.palette.blue[50]}`,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+
+interface CardBodyProps {
+  status: Status;
+  ragStatus: "green" | "amber" | "red";
+  lastUpdated: string;
+  name: string;
+  teamName: string;
+  teamInitial: string;
+  date: string;
+  progress: number;
+}
+
+const CardBody: React.FC<CardBodyProps> = ({
+  status,
+  ragStatus,
+  lastUpdated,
+  name,
+  teamName,
+  teamInitial,
+  date,
+  progress,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <div className={classes.content}>
+      <div className={classes.statusBar}>
+        <div className={classes.statusTags}>
+          <StatusChip status={status} />
+          <RAGStatusChip status={ragStatus} label={status.toUpperCase()} />
+        </div>
+        <DateChip date={lastUpdated} />
+      </div>
+
+      <Typography className={classes.name}>{name}</Typography>
+
+      <div className={classes.attributes}>
+        <div className={classes.leading}>
+          <TeamNameChip
+            name={teamName}
+            dotColor={theme.palette.purple[20]}
+            dotChar={teamInitial}
+          />
+          <DateChip date={date} />
+        </div>
+
+        <div className={classes.progress}>
+          <div className={classes.progressCircle} />
+          <span>{progress}%</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CardBody;
+
+================
+File: src/components/Card/CardFooter.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+
+import CardFooter from "./CardFooter";
+
+export default {
+  title: "Components/CardFooter",
+  component: CardFooter,
+} as Meta;
+
+const Template: StoryFn<typeof CardFooter> = (args) => (
+  <CardFooter {...args} />
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  status: "inProgress",
+  ragStatus: "green",
+  ragLabel: "On track",
+  date: "Just now",
+  progress: 75,
+  progressType: "objective",
+  progressVariant: "normal",
+};
+
+================
+File: src/components/Card/CardFooter.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+import { theme } from "../../theme/theme";
+import { DateChip } from "../DateChip/DateChip";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import type { RAGStatus } from "../RAGStatusChip/RAGStatusChip";
+import { RAGStatusChip } from "../RAGStatusChip/RAGStatusChip";
+import type { Status } from "../StatusChip/StatusChip";
+import { StatusChip } from "../StatusChip/StatusChip";
+
+const useStyles = makeStyles()({
+  root: {
+    width: 336,
+    height: 86,
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(6),
+    paddingLeft: theme.spacing(6),
+    paddingRight: theme.spacing(6),
+    border: `1px solid ${theme.palette.neutral[40]}`,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    gap: theme.spacing(5),
+  },
+  statusContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  statusChips: {
+    display: "flex",
+    gap: theme.spacing(1),
+  },
+  progressContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(2),
+    width: "100%",
+    justifyContent: "space-between",
+  },
+});
+
+interface CardFooterProps {
+  status: Status;
+  ragStatus: RAGStatus;
+  ragLabel: string;
+  date: string;
+  progress: number;
+  progressType: "objective" | "crew" | "initiative" | "pod";
+  progressVariant: "striped" | "normal";
+}
+
+const CardFooter: React.FC<CardFooterProps> = ({
+  status,
+  ragStatus,
+  ragLabel,
+  date,
+  progress,
+  progressType,
+  progressVariant,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <div className={classes.statusContainer}>
+        <div className={classes.statusChips}>
+          <StatusChip status={status} />
+          <RAGStatusChip status={ragStatus} label={ragLabel} />
+        </div>
+        <DateChip date={date} />
+      </div>
+      <div className={classes.progressContainer}>
+        <ProgressBar
+          progress={progress}
+          type={progressType}
+          variant={progressVariant}
+        />
+        <Typography variant="caption.standard" color="neutral.70">
+          {progress}%
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
+export default CardFooter;
+
+================
+File: src/components/Card/CardHeader.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+
+import type { CardHeaderProps } from "./CardHeader";
+import CardHeader from "./CardHeader";
+
+export default {
+  title: "Components/CardHeader",
+  component: CardHeader,
+} as Meta;
+
+const Template: StoryFn<CardHeaderProps> = (
+  args: CardHeaderProps
+) => {
+  return <CardHeader {...args} />;
+};
+
+export const Objective = Template.bind({});
+Objective.args = {
+  type: "Objective",
+};
+
+export const KeyResult = Template.bind({});
+KeyResult.args = {
+  type: "Key Result",
+};
+
+export const Initiative = Template.bind({});
+Initiative.args = {
+  type: "Initiative",
+};
+
+export const Work = Template.bind({});
+Work.args = {
+  type: "Work",
+};
+
+export const Assignment = Template.bind({});
+Assignment.args = {
+  type: "Assignment",
+};
+
+export const Other = Template.bind({});
+Other.args = {
+  type: "Other",
+};
+
+================
+File: src/components/Card/CardHeader.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => ({
+  CardHeader: {
+    height: "36px",
+    padding: "6px 8px 6px 6px",
+    backgroundColor: theme.palette.neutral[10],
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  iconLabel: {
+    flex: "1 1 0",
+    height: "24px",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: theme.spacing(2),
+  },
+  signpostingIcon: {
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    display: "inline-flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 24,
+    height: 24,
+  },
+  cardType: {
+    color: theme.palette.neutral[70],
+  },
+}));
+
+export interface CardHeaderProps {
+  type:
+    | "Objective"
+    | "Key Result"
+    | "Initiative"
+    | "Work"
+    | "Assignment"
+    | "Other";
+}
+
+const CardHeader: React.FC<CardHeaderProps> = ({ type }) => {
+  const typeToIconMap: { [key in CardHeaderProps["type"]]: string } = {
+    Objective: "🎯",
+    "Key Result": "📈",
+    Initiative: "🚀",
+    Work: "📖",
+    Assignment: "✏️",
+    Other: "🖌️",
+  };
+
+  const icon = typeToIconMap[type];
+  const { classes } = useStyles();
+
+  return (
+    <div className={classes.CardHeader}>
+      <div className={classes.iconLabel}>
+        <div className={classes.signpostingIcon}>
+          <Typography component="span" variant="emoji">
+            {icon}
+          </Typography>
+        </div>
+        <Typography variant="subtitle.standard" className={classes.cardType}>
+          {type}
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
+export default CardHeader;
+
+================
+File: src/components/Checkbox/Checkbox.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { Checkbox } from "./Checkbox";
+
+const meta: Meta<typeof Checkbox> = {
+  title: "components/Checkbox",
+  component: Checkbox,
+  decorators: [(Story) => <Story />],
+  args: {
+    disabled: false,
+    checked: false,
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Checkbox>;
+
+export const Default: Story = {
+  render: (args) => <Checkbox {...args} />,
+};
+
+================
+File: src/components/Checkbox/Checkbox.tsx
+================
+import type { CheckboxProps as MaterialUiCheckboxProps } from "@mui/material/Checkbox";
+import MaterialUiCheckbox from "@mui/material/Checkbox";
+import { Check } from "iconoir-react";
+import { makeStyles } from "tss-react/mui";
+
+import { theme } from "../../theme/theme";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    padding: 0,
+    verticalAlign: "top",
+
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
+  icon: {
+    width: 16,
+    height: 16,
+    border: `1px solid ${theme.palette.custom.border.standard}`,
+    borderRadius: theme.spacing(1),
+
+    "input:hover ~ &": {
+      border: `1px solid ${theme.palette.blue["50"]}`,
+    },
+    "input:active ~ &": {
+      border: `1px solid ${theme.palette.blue["50"]}`,
+    },
+    "input:disabled ~ &": {
+      backgroundColor: theme.palette.neutral["30"],
+    },
+  },
+  checkedIcon: {
+    width: 16,
+    height: 16,
+    backgroundColor: theme.palette.blue["50"],
+    border: `1px solid ${theme.palette.blue["50"]}`,
+    position: "relative",
+    borderRadius: theme.spacing(1),
+
+    "& svg": {
+      position: "absolute",
+      top: 1,
+      left: 1,
+    },
+    "input:hover ~ &": {
+      backgroundColor: theme.palette.blue["50"],
+      border: `1px solid ${theme.palette.blue["50"]}`,
+    },
+    "input:active ~ &": {
+      backgroundColor: theme.palette.blue["50"],
+      border: `1px solid ${theme.palette.blue["50"]}`,
+    },
+    "input:disabled ~ &": {
+      backgroundColor: theme.palette.neutral["30"],
+      border: `1px solid ${theme.palette.custom.border.standard}`,
+
+      "& svg": {
+        color: theme.palette.neutral["60"],
+      },
+    },
+  },
+}));
+
+export type CheckboxProps = MaterialUiCheckboxProps & {
+  overrideClasses?: Record<string, string>;
+};
+
+export const Checkbox = ({ overrideClasses, ...props }: CheckboxProps) => {
+  const { classes, cx } = useStyles();
+
+  return (
+    <MaterialUiCheckbox
+      disableRipple
+      icon={<span className={classes.icon} />}
+      checkedIcon={
+        <span className={classes.checkedIcon}>
+          <Check width={12} height={12} color={theme.palette.neutral.white} />
+        </span>
+      }
+      classes={{
+        root: cx(classes.root, overrideClasses?.root),
+      }}
+      {...props}
+    />
+  );
+};
+
+================
+File: src/components/ContextMenu/ContextMenu.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+import { Square3dFromCenter } from "iconoir-react";
+
+import { ContextMenu } from "./ContextMenu";
+
+const meta: Meta<typeof ContextMenu> = {
+  title: "Components/ContextMenu",
+  component: ContextMenu,
+  parameters: {
+    layout: "centered",
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof ContextMenu>;
+
+const mockSections = [
+  {
+    items: [
+      {
+        icon: <Square3dFromCenter />,
+        label: "View image",
+        shortcut: "⌘ + V",
+      },
+      {
+        icon: <Square3dFromCenter />,
+        label: "Save image",
+        shortcut: "⌘ + S",
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        icon: <Square3dFromCenter />,
+        label: "Copy image",
+        shortcut: "⌘ + C",
+      },
+      {
+        icon: <Square3dFromCenter />,
+        label: "Delete image",
+        shortcut: "⌘ + D",
+      },
+    ],
+  },
+];
+
+const mockTabs = [
+  {
+    label: "Tab 1",
+    sections: [mockSections[0]],
+  },
+  {
+    label: "Tab 2",
+    sections: [mockSections[1]],
+  },
+];
+
+export const Default: Story = {
+  args: {
+    sections: mockSections,
+  },
+};
+
+export const SingleSection: Story = {
+  args: {
+    sections: [mockSections[0]],
+  },
+};
+
+export const WithTabs: Story = {
+  args: {
+    tabs: mockTabs,
+    defaultTabIndex: 0,
+  },
+};
+
+================
+File: src/components/ContextMenu/ContextMenu.tsx
+================
+import { Fragment, useState } from "react";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
+import { makeStyles } from "tss-react/mui";
+
+import type { ContextMenuItemProps } from "./ContextMenuItem";
+import { ContextMenuItem } from "./ContextMenuItem";
+import { ContextMenuTab } from "./ContextMenuTab";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    backgroundColor: theme.palette.neutral[90],
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(1),
+    width: 232,
+    overflow: "hidden",
+  },
+  tabs: {
+    display: "flex",
+    padding: theme.spacing(2),
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  section: {
+    "&:not(:last-child)": {
+      marginBottom: theme.spacing(1),
+    },
+  },
+  divider: {
+    backgroundColor: theme.palette.neutral[70],
+    margin: theme.spacing(1, 0),
+  },
+}));
+
+export interface ContextMenuTab {
+  label: string;
+  sections: ContextMenuSection[];
+}
+
+export interface ContextMenuSection {
+  items: ContextMenuItemProps[];
+}
+
+interface ContextMenuProps {
+  sections?: ContextMenuSection[];
+  tabs?: ContextMenuTab[];
+  defaultTabIndex?: number;
+}
+
+export const ContextMenu: React.FC<ContextMenuProps> = ({
+  sections = [],
+  tabs = [],
+  defaultTabIndex = 0,
+}) => {
+  const { classes } = useStyles();
+  const [activeTabIndex, setActiveTabIndex] = useState(defaultTabIndex);
+
+  const activeSections =
+    tabs.length > 0 ? tabs[activeTabIndex].sections : sections;
+
+  return (
+    <Paper className={classes.root} elevation={4}>
+      {tabs.length > 0 && (
+        <>
+          <Box className={classes.tabs}>
+            {tabs.map((tab, index) => (
+              <ContextMenuTab
+                key={index}
+                label={tab.label}
+                active={index === activeTabIndex}
+                onClick={() => setActiveTabIndex(index)}
+              />
+            ))}
+          </Box>
+          <Divider className={classes.divider} />
+        </>
+      )}
+
+      {activeSections.map((section, sectionIndex) => (
+        <Fragment key={sectionIndex}>
+          {sectionIndex > 0 && <Divider className={classes.divider} />}
+          <div className={classes.section}>
+            {section.items.map((item, itemIndex) => (
+              <ContextMenuItem key={itemIndex} {...item} />
+            ))}
+          </div>
+        </Fragment>
+      ))}
+    </Paper>
+  );
+};
+
+================
+File: src/components/ContextMenu/ContextMenuItem.tsx
+================
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    width: "100%",
+    height: theme.spacing(8),
+    padding: theme.spacing(2),
+    borderRadius: theme.shape.borderRadius,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    cursor: "pointer",
+    transition: theme.transitions.create(["background-color"]),
+    "&:hover": {
+      backgroundColor: theme.palette.blue[40],
+    },
+  },
+  iconLabelChild: {
+    display: "flex",
+  },
+  icon: {
+    "& svg": {
+      color: theme.palette.neutral[50],
+    },
+  },
+  iconLabel: {
+    flex: "1 1 0",
+    height: theme.spacing(4),
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(2),
+  },
+  label: {
+    color: theme.palette.neutral.white,
+    ...theme.typography["caption.standard"],
+  },
+  shortcut: {
+    color: theme.palette.neutral[50],
+    ...theme.typography["caption.standard"],
+  },
+}));
+
+export interface ContextMenuItemProps {
+  icon?: React.ReactNode;
+  label: string;
+  shortcut?: string;
+  onClick?: () => void;
+}
+
+export const ContextMenuItem: React.FC<ContextMenuItemProps> = ({
+  icon,
+  label,
+  shortcut,
+  onClick,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <Box className={classes.root} onClick={onClick}>
+      <Box className={classes.iconLabel}>
+        {icon && (
+          <Box className={`${classes.iconLabelChild} ${classes.icon}`}>
+            {icon}
+          </Box>
+        )}
+        <Typography className={`${classes.iconLabelChild} ${classes.label}`}>
+          {label}
+        </Typography>
+      </Box>
+      {shortcut && (
+        <Typography className={classes.shortcut}>{shortcut}</Typography>
+      )}
+    </Box>
+  );
+};
+
+================
+File: src/components/ContextMenu/ContextMenuTab.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+    cursor: "pointer",
+    borderRadius: theme.shape.borderRadius,
+    transition: theme.transitions.create(["background-color"]),
+    "&:hover": {
+      backgroundColor: theme.palette.neutral[80],
+    },
+    "&.active": {
+      backgroundColor: theme.palette.neutral[70],
+    },
+  },
+  label: {
+    color: theme.palette.neutral.white,
+    ...theme.typography["caption.standard"],
+  },
+}));
+
+export interface ContextMenuTabProps {
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+}
+
+export const ContextMenuTab: React.FC<ContextMenuTabProps> = ({
+  label,
+  active,
+  onClick,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <div
+      className={`${classes.root} ${active ? "active" : ""}`}
+      onClick={onClick}
+    >
+      <Typography className={classes.label}>{label}</Typography>
+    </div>
+  );
+};
+
+================
+File: src/components/ContextMenu/index.ts
+================
+import * as ContextMenu from "./ContextMenu";
+import * as ContextMenuItem from "./ContextMenuItem";
+import * as ContextMenuTab from "./ContextMenuTab";
+
+export { ContextMenu, ContextMenuItem, ContextMenuTab };
+
+================
+File: src/components/ControlGroup/ControlGroup.stories.tsx
+================
+import { useArgs } from "@storybook/preview-api";
+import type { Meta, StoryObj } from "@storybook/react";
+import { List, MenuScale, ViewGrid } from "iconoir-react";
+
+import { ControlGroup } from "./ControlGroup";
+
+const meta: Meta<typeof ControlGroup> = {
+  title: "components/ControlGroup",
+  component: ControlGroup,
+  args: {
+    options: [
+      { label: "Grid", icon: <ViewGrid /> },
+      { label: "List", icon: <List /> },
+      { label: "Gantt", icon: <MenuScale /> },
+    ],
+    activeOption: "Grid",
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof ControlGroup>;
+
+export const Default: Story = {
+  render: (args) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [_, setArgs] = useArgs();
+
+    const onChange = (option: string) => {
+      args.onChange(option);
+      setArgs({ activeOption: option });
+    };
+    return <ControlGroup {...args} onChange={onChange} />;
+  },
+};
+
+================
+File: src/components/ControlGroup/ControlGroup.tsx
+================
+import type { ReactNode } from "react";
+import { makeStyles } from "tss-react/mui";
+
+import { Button } from "../Button/Button";
+
+const useStyles = makeStyles({
+  name: "ControlGroup",
+})((theme) => {
+  return {
+    root: {
+      backgroundColor: theme.palette.neutral[30],
+      width: "max-content",
+      borderRadius: theme.spacing(1),
+      paddingBottom: 2,
+    },
+    active: { boxShadow: "0px 2px 1px -1px rgba(28, 28, 28, 0.08)" },
+    inActive: {
+      color: theme.palette.custom.text.subtle,
+      "&:hover": {
+        color: "inherit",
+      },
+    },
+  };
+});
+
+export type ControlGroupProps = {
+  options: { label: string; icon?: ReactNode }[];
+  activeOption: string;
+  onChange: (option: string) => void;
+};
+
+export const ControlGroup = ({
+  options,
+  activeOption,
+  onChange,
+}: ControlGroupProps) => {
+  const { classes } = useStyles();
+
+  if (options.length === 0) return;
+
+  return (
+    <>
+      <div className={classes.root}>
+        {options.map((option) => (
+          <Button
+            key={`control-${option.label}`}
+            variant={option.label === activeOption ? "secondary" : "tertiary"}
+            onClick={() => onChange(option.label)}
+            className={
+              option.label === activeOption ? classes.active : classes.inActive
+            }
+            startIcon={option.icon}
+          >
+            {option.label}
+          </Button>
+        ))}
+      </div>
+    </>
+  );
+};
+
+================
+File: src/components/DateChip/DateChip.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { DateChip } from "./DateChip";
+
+const meta: Meta<typeof DateChip> = {
+  title: "Components/DateChip",
+  component: DateChip,
+  parameters: {
+    layout: "centered",
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DateChip>;
+
+export const Default: Story = {
+  args: {
+    date: "DD MMM YY",
+  },
+};
+
+export const WithDate: Story = {
+  args: {
+    date: "15 Mar 24",
+  },
+};
+
+================
+File: src/components/DateChip/DateChip.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    height: theme.spacing(3.5), // 14px
+    display: "inline-flex",
+    alignItems: "center",
+    textTransform: "uppercase",
+  },
+}));
+
+interface DateChipProps {
+  date?: string;
+  className?: string;
+}
+
+export const DateChip: React.FC<DateChipProps> = ({
+  date = "DD MMM YY",
+  className,
+}) => {
+  const { classes, cx } = useStyles();
+
+  return (
+    <div className={cx(classes.root, className)}>
+      <Typography variant="caption.small" color="neutral.60">
+        {date}
+      </Typography>
+    </div>
+  );
+};
+
+================
+File: src/components/DateChip/index.ts
+================
+export * from "./DateChip";
+
+================
+File: src/components/IconButton/IconButton.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+import { Search as SearchIcon } from "iconoir-react";
+
+import { IconButton } from "./IconButton";
+
+const meta: Meta<typeof IconButton> = {
+  title: "Components/IconButton",
+  component: IconButton,
+  decorators: [(Story) => <Story />],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof IconButton>;
+
+export const Inactive: Story = {
+  decorators: [(Story) => <Story />],
+  args: {
+    icon: <SearchIcon />,
+    isActive: false,
+  },
+};
+
+export const Active: Story = {
+  decorators: [(Story) => <Story />],
+  args: {
+    icon: <SearchIcon />,
+    isActive: true,
+  },
+};
+
+================
+File: src/components/IconButton/IconButton.tsx
+================
+import ButtonBase from "@mui/material/ButtonBase";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => {
+  return {
+    root: {
+      padding: theme.spacing(3), // 8px padding
+      borderRadius: theme.shape.borderRadius, // use theme token for border radius (usually 4px)
+      display: "flex",
+      justifyContent: "center",
+      alignSelf: "center",
+      alignItems: "center",
+      boxSizing: "border-box",
+      overflow: "hidden",
+      border: "1px solid transparent", // avoids content jump on hover effect
+      transition: "border 0.2s ease-in-out", // smoother hover effect
+      /**
+       * This drives the color of the ripple effect on press
+       */
+      color: theme.palette.neutral[70],
+      "&:hover": {
+        backgroundColor: theme.palette.neutral[30],
+      },
+      "&.active": {
+        color: theme.palette.neutral[70],
+        background: theme.palette.neutral.white,
+        boxShadow: "0px 2px 1px -1px rgba(28, 28, 28, 0.08)",
+        border: `1px solid ${theme.palette.neutral[40]}`,
+      },
+    },
+    icon: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  };
+});
+
+interface IconButtonProps {
+  icon: React.ReactNode;
+  isActive: boolean;
+}
+
+export const IconButton: React.FC<IconButtonProps> = ({ icon, isActive }) => {
+  const { classes, cx } = useStyles();
+
+  return (
+    <ButtonBase
+      component="div"
+      className={cx([classes.root, { active: isActive }])}
+      sx={{
+        "> .MuiTouchRipple-child": {
+          backgroundColor: (theme) => theme.palette.neutral[70],
+        },
+      }}
+    >
+      <div className={classes.icon}>{icon}</div>
+    </ButtonBase>
+  );
+};
+
+================
+File: src/components/Initiative/InitiativeCardLayout.tsx
+================
+import Box from "@mui/material/Box";
+import { makeStyles } from "tss-react/mui";
+
+import AppHeader from "../Navigation/AppHeader";
+import { PrimaryNavigation } from "../Navigation/PrimaryNavigation";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    display: "flex",
+    minHeight: "100vh",
+  },
+  content: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+  },
+  main: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: theme.palette.neutral[10],
+    border: "1px solid",
+    borderColor: theme.palette.neutral[40],
+    borderTopLeftRadius: theme.spacing(1),
+  },
+  childrenContainer: {
+    flex: 1,
+    padding: theme.spacing(7),
+    flexWrap: "wrap",
+    overflow: "hidden",
+  },
+}));
+
+interface InitiativeCardLayoutProps {
+  children: React.ReactNode;
+}
+
+export const InitiativeCardLayout: React.FC<InitiativeCardLayoutProps> = ({
+  children,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <Box className={classes.root}>
+      <PrimaryNavigation />
+      <Box className={classes.content}>
+        <AppHeader />
+        <Box className={classes.main}>
+          <div className={classes.childrenContainer}>{children}</div>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+================
+File: src/components/Initiative/InitiativeCardPage.tsx
+================
+import { makeStyles } from "tss-react/mui";
+
+import type { CardProps } from "../Card/Card";
+import { Card } from "../Card/Card";
+
+import { InitiativeCardLayout } from "./InitiativeCardLayout";
+
+const useStyles = makeStyles()((theme) => ({
+  gridContainer: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: theme.spacing(3),
+  },
+}));
+
+export const MOCK_INITIATIVES: CardProps[] = [
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "amber",
+    lastUpdated: "Yesterday",
+    name: "User has entered the initiative name here and it can span multiple lines",
+    teamName: "SYDNEY SIEROTA",
+    teamInitial: "S",
+    date: "25 MAR 25",
+    progress: 75,
+  },
+  {
+    type: "Objective",
+    status: "planned",
+    ragStatus: "green",
+    lastUpdated: "Just now",
+    name: "This is a new initiative which was requested by an IM and has been added by the Blueprint team",
+    teamName: "MANAGER NOT SET",
+    teamInitial: "M",
+    date: "25 MAR 25",
+    progress: 0,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "red",
+    lastUpdated: "Yesterday",
+    name: "User has entered the initiative name here and it can span multiple lines",
+    teamName: "SYDNEY SIEROTA",
+    teamInitial: "S",
+    date: "25 MAR 25",
+    progress: 50,
+  },
+  {
+    type: "Objective",
+    status: "planned",
+    ragStatus: "green",
+    lastUpdated: "2 days ago",
+    name: "Implement new customer feedback system across all product lines",
+    teamName: "ALEX CHEN",
+    teamInitial: "A",
+    date: "15 APR 25",
+    progress: 100,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "amber",
+    lastUpdated: "5 hours ago",
+    name: "Develop AI-powered analytics dashboard for real-time insights",
+    teamName: "MARIA RODRIGUEZ",
+    teamInitial: "M",
+    date: "30 JUN 25",
+    progress: 35,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "red",
+    lastUpdated: "1 week ago",
+    name: "Legacy system migration to cloud infrastructure",
+    teamName: "JAMES WILSON",
+    teamInitial: "J",
+    date: "10 MAY 25",
+    progress: 20,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "green",
+    lastUpdated: "3 days ago",
+    name: "Mobile app redesign and performance optimization",
+    teamName: "EMMA TAYLOR",
+    teamInitial: "E",
+    date: "01 JUL 25",
+    progress: 60,
+  },
+  {
+    type: "Objective",
+    status: "planned",
+    ragStatus: "amber",
+    lastUpdated: "1 day ago",
+    name: "Implement enhanced security protocols across all platforms",
+    teamName: "DAVID KUMAR",
+    teamInitial: "D",
+    date: "20 AUG 25",
+    progress: 0,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "green",
+    lastUpdated: "12 hours ago",
+    name: "International market expansion and localization project",
+    teamName: "SOPHIA WANG",
+    teamInitial: "S",
+    date: "15 SEP 25",
+    progress: 45,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "amber",
+    lastUpdated: "4 days ago",
+    name: "Q3 Performance optimization and scalability improvements",
+    teamName: "RYAN PATEL",
+    teamInitial: "R",
+    date: "30 JUL 25",
+    progress: 90,
+  },
+  {
+    type: "Objective",
+    status: "inProgress",
+    ragStatus: "green",
+    lastUpdated: "Today",
+    name: "Strategic partnership integration and API development",
+    teamName: "LISA JOHNSON",
+    teamInitial: "L",
+    date: "05 OCT 25",
+    progress: 30,
+  },
+
+  // Add more mock initiatives as needed
+];
+
+export const InitiativeCardPage: React.FC = () => {
+  const { classes } = useStyles();
+
+  return (
+    <InitiativeCardLayout>
+      <div className={classes.gridContainer}>
+        {MOCK_INITIATIVES.map((initiative, index) => (
+          <Card key={index} {...initiative} />
+        ))}
+      </div>
+    </InitiativeCardLayout>
+  );
+};
+
+================
+File: src/components/Initiative/InitiativeSetup.tsx
+================
+import { makeStyles } from "tss-react/mui";
+
+import { Card } from "../Card/Card";
+
+import { MOCK_INITIATIVES } from "./InitiativeCardPage";
+import { InitiativeSetupLayout } from "./InitiativeSetupLayout";
+
+const useStyles = makeStyles()((theme) => ({
+  setupSection: {
+    display: "flex",
+    gap: theme.spacing(4),
+  },
+  cardIcon: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    color: theme.palette.text.secondary,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  detailsSection: {
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.shape.borderRadius,
+    border: `1px solid ${theme.palette.neutral[30]}`,
+    padding: theme.spacing(4),
+  },
+  detailsHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: theme.spacing(4),
+  },
+  detailsGrid: {
+    display: "grid",
+    gridTemplateColumns: "120px 1fr",
+    gap: theme.spacing(2),
+  },
+  gridContainer: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: theme.spacing(6),
+  },
+}));
+
+export const InitiativeSetup: React.FC = () => {
+  const { classes } = useStyles();
+
+  return (
+    <InitiativeSetupLayout>
+      <div className={classes.gridContainer}>
+        {MOCK_INITIATIVES.map((initiative, index) => (
+          <Card key={index} {...initiative} />
+        ))}
+      </div>
+    </InitiativeSetupLayout>
+  );
+};
+
+================
+File: src/components/Initiative/InitiativeSetupLayout.tsx
+================
+import Box from "@mui/material/Box";
+import { makeStyles } from "tss-react/mui";
+
+import AppHeader from "../Navigation/AppHeader";
+import { PrimaryNavigation } from "../Navigation/PrimaryNavigation";
+import SecondaryNavigation from "../Navigation/SecondaryNavigation";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    display: "flex",
+    minHeight: "100vh",
+  },
+  content: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+  },
+  secondary: {
+    width: 240,
+    paddingTop: theme.spacing(6),
+    borderRight: `1px solid ${theme.palette.neutral[40]}`,
+  },
+  main: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: theme.palette.neutral[10],
+    border: "1px solid",
+    borderColor: theme.palette.neutral[40],
+    borderTopLeftRadius: theme.spacing(1),
+  },
+  childrenContainer: {
+    flex: 1,
+    padding: theme.spacing(7),
+    flexWrap: "wrap",
+  },
+}));
+
+interface InitiativeSetupLayoutProps {
+  children: React.ReactNode;
+}
+
+export const InitiativeSetupLayout: React.FC<InitiativeSetupLayoutProps> = ({
+  children,
+}) => {
+  const { classes } = useStyles();
+
+  // Example sections for the SecondaryNavigation. Update as needed.
+  const sections = [
+    {
+      items: [
+        { label: "Details", to: "/initiatives/setup/details" },
+        { label: "Budgets & Costs", to: "/initiatives/setup/budgets" },
+        { label: "Book of Work", to: "/initiatives/setup/book-of-work" },
+      ],
+    },
+    {
+      title: "Planning",
+      items: [
+        { label: "Timeline", to: "/initiatives/setup/timeline" },
+        { label: "Resources", to: "/initiatives/setup/resources" },
+        { label: "Dependencies", to: "/initiatives/setup/dependencies" },
+      ],
+    },
+    {
+      title: "Documentation",
+      items: [
+        { label: "Requirements", to: "/initiatives/setup/requirements" },
+        { label: "Technical Specs", to: "/initiatives/setup/technical" },
+        { label: "Guidelines", to: "/initiatives/setup/guidelines" },
+      ],
+    },
+  ];
+
+  return (
+    <Box className={classes.root}>
+      <PrimaryNavigation />
+      <Box className={classes.content}>
+        <AppHeader />
+        <Box className={classes.main}>
+          <SecondaryNavigation sections={sections} />
+          <div className={classes.childrenContainer}>{children}</div>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+================
+File: src/components/Navigation/AppHeader.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+
+import AppHeader from "./AppHeader";
+
+export default {
+  title: "Navigation/AppHeader",
+  component: AppHeader,
+} as Meta;
+
+const Template: StoryFn = (args: any) => <AppHeader {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {};
+
+================
+File: src/components/Navigation/AppHeader.tsx
+================
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()((theme) => ({
+  appHeader: {
+    width: "100%",
+    height: 56,
+    paddingRight: theme.spacing(2),
+    justifyContent: "flex-start",
+    alignItems: "center",
+    display: "inline-flex",
+    backgroundColor: theme.palette.neutral[20],
+  },
+  breadcrumb: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    display: "flex",
+  },
+  signpostingIcon: {
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    display: "inline-flex",
+  },
+  iconTypography: {
+    width: 16,
+    height: 16,
+    textAlign: "center",
+    color: theme.palette.neutral[70],
+    fontSize: 16,
+    fontFamily: "Roboto Flex",
+    fontWeight: 400,
+    lineHeight: "16px",
+    letterSpacing: "0.32px",
+    wordWrap: "break-word",
+  },
+  links: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: theme.spacing(1),
+    display: "flex",
+  },
+  breadcrumbItem: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    borderRadius: theme.spacing(1),
+    justifyContent: "center",
+    alignItems: "center",
+    gap: theme.spacing(2),
+    display: "flex",
+  },
+  breadcrumbItemTypography: {
+    color: theme.palette.neutral[100],
+    fontSize: 16,
+    fontFamily: "Roboto Flex",
+    fontWeight: 500,
+    lineHeight: "20px",
+    letterSpacing: "0.32px",
+    wordWrap: "break-word",
+  },
+}));
+
+const AppHeader = () => {
+  const { classes } = useStyles();
+
+  return (
+    <Box className={classes.appHeader}>
+      <Box className={classes.breadcrumb}>
+        <Box className={classes.signpostingIcon}>
+          <Typography className={classes.iconTypography}>🚀</Typography>
+        </Box>
+        <Box className={classes.links}>
+          <Box className={classes.breadcrumbItem}>
+            <Typography className={classes.breadcrumbItemTypography}>
+              Initiatives
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default AppHeader;
+
+================
+File: src/components/Navigation/PrimaryNavigation.stories.tsx
+================
+import { MemoryRouter } from "react-router";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { PrimaryNavigation } from "./PrimaryNavigation";
+
+const meta: Meta<typeof PrimaryNavigation> = {
+  title: "Navigation/PrimaryNavigation",
+  component: PrimaryNavigation,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof PrimaryNavigation>;
+
+export const Default: Story = {
+  render: () => <PrimaryNavigation />,
+};
+
+================
+File: src/components/Navigation/PrimaryNavigation.tsx
+================
+import Paper from "@mui/material/Paper";
+import {
+  Archery as ArcheryIcon,
+  Bookmark as BookmarkIcon,
+  Folder as FolderIcon,
+  Group as GroupIcon,
+  Home as HomeIcon,
+  Rocket as RocketIcon,
+  Settings as SettingsIcon,
+} from "iconoir-react";
+import { makeStyles } from "tss-react/mui";
+
+import { AppLogo } from "../AppLogo";
+
+import { PrimaryNavigationItem } from "./PrimaryNavigationItem";
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    width: theme.spacing(18), // 72px
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: theme.palette.neutral[20],
+    borderRadius: 0,
+  },
+  nav: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    flex: 1,
+    gap: theme.spacing(6),
+    paddingTop: theme.spacing(4),
+  },
+}));
+
+export const PrimaryNavigation: React.FC = () => {
+  const { classes } = useStyles();
+
+  return (
+    <Paper className={classes.root} elevation={0}>
+      <nav className={classes.nav}>
+        <AppLogo />
+        <PrimaryNavigationItem icon={<HomeIcon />} label="Home" to="/" />
+        <PrimaryNavigationItem icon={<ArcheryIcon />} label="OKRs" to="/okrs" />
+        <PrimaryNavigationItem
+          icon={<RocketIcon />}
+          label="Initiatives"
+          to="/initiatives"
+        />
+        <PrimaryNavigationItem icon={<GroupIcon />} label="Teams" to="/teams" />
+        <PrimaryNavigationItem
+          icon={<FolderIcon />}
+          label="Custom Portfolio"
+          to="/custom-portfolio"
+        />
+        <PrimaryNavigationItem
+          icon={<BookmarkIcon />}
+          label="Saved"
+          to="/saved"
+        />
+        <PrimaryNavigationItem
+          icon={<SettingsIcon />}
+          label="Settings"
+          to="/settings"
+        />
+      </nav>
+    </Paper>
+  );
+};
+
+================
+File: src/components/Navigation/PrimaryNavigationItem.stories.tsx
+================
+import { MemoryRouter } from "react-router";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Search as SearchIcon } from "iconoir-react";
+
+import { PrimaryNavigationItem } from "./PrimaryNavigationItem";
+
+const meta: Meta<typeof PrimaryNavigationItem> = {
+  title: "Navigation/PrimaryNavigationItem",
+  component: PrimaryNavigationItem,
+  decorators: [(Story) => <Story />],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof PrimaryNavigationItem>;
+
+export const Inactive: Story = {
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/other"]}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
+  args: {
+    icon: <SearchIcon />,
+    label: "Label",
+    to: "/search",
+  },
+};
+
+export const Active: Story = {
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/search"]}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
+  args: {
+    icon: <SearchIcon />,
+    label: "Label",
+    to: "/search",
+  },
+};
+
+export const DifferentLabel: Story = {
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/search"]}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
+  args: {
+    icon: <SearchIcon />,
+    label: "Dashboard",
+    to: "/dashboard",
+  },
+};
+
+================
+File: src/components/Navigation/PrimaryNavigationItem.tsx
+================
+import { NavLink } from "react-router";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+import { IconButton } from "../IconButton/IconButton";
+
+const useStyles = makeStyles()((theme) => {
+  return {
+    navItem: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      textDecoration: "none",
+      color: theme.palette.custom.text.standard,
+      gap: theme.spacing(1), // 4px gap between icon and label
+    },
+    label: {
+      color: theme.palette.custom.text.standard,
+      textAlign: "center",
+      width: "100%",
+    },
+  };
+});
+
+interface PrimaryNavigationItemProps {
+  icon: React.ReactNode;
+  label: string;
+  to: string;
+}
+
+export const PrimaryNavigationItem: React.FC<PrimaryNavigationItemProps> = ({
+  icon,
+  label,
+  to,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <div className={classes.navItem}>
+      <NavLink to={to}>
+        {({ isActive }) => <IconButton isActive={isActive} icon={icon} />}
+      </NavLink>
+      <Typography className={classes.label} variant="caption.standard">
+        {label}
+      </Typography>
+    </div>
+  );
+};
+
+================
+File: src/components/Navigation/SecondaryNavigation.stories.tsx
+================
+import { MemoryRouter } from "react-router";
+import type { Meta, StoryFn } from "@storybook/react";
+
+import SecondaryNavigation from "./SecondaryNavigation";
+
+export default {
+  title: "Navigation/SecondaryNavigation",
+  component: SecondaryNavigation,
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <div style={{ width: 240 }}>
+          <Story />
+        </div>
+      </MemoryRouter>
+    ),
+  ],
+} as Meta<typeof SecondaryNavigation>;
+
+const Template: StoryFn<typeof SecondaryNavigation> = (args) => (
+  <SecondaryNavigation {...args} />
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  sections: [
+    {
+      items: [
+        { label: "Overview", to: "/overview" },
+        { label: "Book of work", to: "/book-of-work" },
+        { label: "Initiative OKRs", to: "/okrs" },
+      ],
+    },
+    {
+      title: "Reporting",
+      items: [
+        { label: "Key dates", to: "/key-dates" },
+        { label: "Commentary", to: "/commentary" },
+        { label: "Risks & issues", to: "/risks" },
+        { label: "Dependencies", to: "/dependencies" },
+      ],
+    },
+    {
+      title: "Advanced",
+      items: [
+        { label: "Budgets and costs", to: "/budgets" },
+        { label: "Planning canvas", to: "/planning" },
+        { label: "Plan status", to: "/status" },
+        { label: "Sunburst", to: "/sunburst" },
+      ],
+    },
+  ],
+};
+
+export const SingleSection = Template.bind({});
+SingleSection.args = {
+  sections: [
+    {
+      items: [
+        { label: "Overview", to: "/overview" },
+        { label: "Book of work", to: "/book-of-work" },
+        { label: "Initiative OKRs", to: "/okrs" },
+      ],
+    },
+  ],
+};
+
+export const WithoutTitles = Template.bind({});
+WithoutTitles.args = {
+  sections: [
+    {
+      items: [
+        { label: "Overview", to: "/overview" },
+        { label: "Book of work", to: "/book-of-work" },
+      ],
+    },
+    {
+      items: [
+        { label: "Key dates", to: "/key-dates" },
+        { label: "Commentary", to: "/commentary" },
+      ],
+    },
+  ],
+};
+
+================
+File: src/components/Navigation/SecondaryNavigation.tsx
+================
+import { Fragment } from "react/jsx-runtime";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+import SecondaryNavigationItem from "./SecondaryNavigationItem";
+
+interface NavigationSection {
+  title?: string;
+  items: {
+    label: string;
+    to: string;
+  }[];
+}
+
+interface SecondaryNavigationProps {
+  sections: NavigationSection[];
+}
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    width: 224,
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(1),
+    height: "100%",
+    borderRight: "1px solid",
+    borderColor: theme.palette.neutral[40],
+  },
+  section: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing(1),
+    padding: theme.spacing(4),
+  },
+  sectionTitle: {
+    padding: theme.spacing(3),
+  },
+  navigationList: {
+    display: "flex",
+    flexDirection: "column",
+    padding: theme.spacing(0, 3),
+    gap: theme.spacing(1),
+  },
+  navigationListNoPadding: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 0,
+    gap: theme.spacing(1),
+  },
+}));
+
+const SecondaryNavigation: React.FC<SecondaryNavigationProps> = ({
+  sections,
+}) => {
+  const { classes } = useStyles();
+
+  return (
+    <Box className={classes.root}>
+      {sections.map((section, index) => (
+        <Fragment key={section.title || `section-${index}`}>
+          {index > 0 && <Divider />}
+          <div className={classes.section}>
+            {section.title && (
+              <Typography
+                variant="caption.standard"
+                color="neutral.60"
+                className={classes.sectionTitle}
+              >
+                {section.title}
+              </Typography>
+            )}
+            <div
+              className={
+                section.title
+                  ? classes.navigationList
+                  : classes.navigationListNoPadding
+              }
+            >
+              {section.items.map((item) => (
+                <SecondaryNavigationItem
+                  key={item.to}
+                  label={item.label}
+                  to={item.to}
+                />
+              ))}
+            </div>
+          </div>
+        </Fragment>
+      ))}
+    </Box>
+  );
+};
+
+export default SecondaryNavigation;
+
+================
+File: src/components/Navigation/SecondaryNavigationItem.stories.tsx
+================
+import { MemoryRouter } from "react-router";
+import type { Meta, StoryObj } from "@storybook/react";
+
+import SecondaryNavigationItem from "./SecondaryNavigationItem";
+
+const meta: Meta<typeof SecondaryNavigationItem> = {
+  title: "Navigation/SecondaryNavigationItem",
+  component: SecondaryNavigationItem,
+  // Wrap stories in a MemoryRouter so NavLink can work properly.
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof SecondaryNavigationItem>;
+
+export const Active: Story = {
+  args: {
+    label: "Overview",
+    to: "/",
+  },
+};
+
+export const Inactive: Story = {
+  args: {
+    label: "Profile",
+    to: "/profile",
+  },
+};
+
+================
+File: src/components/Navigation/SecondaryNavigationItem.tsx
+================
+import { useState } from "react";
+import { NavLink } from "react-router";
+import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+interface SecondaryNavigationItemProps {
+  label: string;
+  to: string;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  container: {
+    minWidth: 184,
+    width: "100%",
+    padding: theme.spacing(2),
+    overflow: "hidden",
+    display: "inline-flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    cursor: "pointer",
+    transition: "all 0.2s ease-in-out",
+    textDecoration: "none", // Remove default anchor underline
+    border: "1px solid transparent",
+    borderRadius: theme.spacing(1),
+    /**
+     * This drive the color of the ripple effect on press
+     */
+    color: theme.palette.neutral[70],
+    outline: "none",
+    "&:hover": {
+      background: theme.palette.neutral[30],
+    },
+    "&.active": {
+      background: theme.palette.neutral.white,
+      boxShadow: "0px 2px 1px -1px rgba(28, 28, 28, 0.08)",
+      border: `1px solid ${theme.palette.neutral[40]}`,
+    },
+  },
+  iconLabel: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing(1.5),
+    flex: "1 1 0",
+    padding: theme.spacing(0.5),
+    justifyContent: "flex-start",
+  },
+}));
+
+const SecondaryNavigationItem: React.FC<SecondaryNavigationItemProps> = ({
+  label,
+  to,
+}) => {
+  const { classes, cx } = useStyles();
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <NavLink
+      to={to}
+      end
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {({ isActive }: { isActive: boolean }) => (
+        <ButtonBase
+          component="div"
+          className={cx([classes.container, { active: isActive }])}
+          sx={{
+            "& .MuiTouchRipple-child": {
+              backgroundColor: (theme) => theme.palette.neutral[70],
+            },
+          }}
+        >
+          <div className={classes.iconLabel}>
+            <Typography
+              variant={
+                isActive ? "subtitle.standard.bold" : "subtitle.standard"
+              }
+              sx={{
+                color: isActive || isHovered ? "neutral.100" : "neutral.70",
+              }}
+            >
+              {label}
+            </Typography>
+          </div>
+        </ButtonBase>
+      )}
+    </NavLink>
+  );
+};
+
+export default SecondaryNavigationItem;
+
+================
+File: src/components/ProgressBar/ProgressBar.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import ProgressBar from "./ProgressBar";
+
+const meta: Meta<typeof ProgressBar> = {
+  title: "Components/ProgressBar",
+  component: ProgressBar,
+  argTypes: {
+    type: {
+      control: {
+        type: "select",
+        options: ["default", "crew", "objective", "pod"],
+      },
+    },
+    variant: {
+      control: {
+        type: "select",
+        options: ["striped", "normal"],
+      },
+    },
+  },
+};
+
+export default meta;
+
+export const CrewStyle: StoryObj<typeof ProgressBar> = {
+  args: {
+    progress: 50,
+    type: "crew",
+    variant: "striped",
+  },
+};
+
+export const ObjectiveStyle: StoryObj<typeof ProgressBar> = {
+  args: {
+    progress: 50,
+    type: "objective",
+    variant: "striped",
+  },
+};
+
+export const PodStyle: StoryObj<typeof ProgressBar> = {
+  args: {
+    progress: 50,
+    type: "pod",
+    variant: "striped",
+  },
+};
+
+================
+File: src/components/ProgressBar/ProgressBar.tsx
+================
+import { theme } from "../../theme/theme";
+
+export interface ProgressBarProps {
+  progress: number;
+  type: "objective" | "crew" | "initiative" | "pod";
+  variant: "striped" | "normal";
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({
+  progress,
+  type,
+  variant,
+}) => {
+  const maskWidth = Math.min(Math.max(progress, 0), 100) * 2; // Ensure progress is between 0 and 100
+
+  const getImageId = () => {
+    switch (type) {
+      case "crew":
+        return "image0_39_2164";
+      case "objective":
+        return "image0_4378_23161";
+      case "pod":
+        return "image0_40_615";
+      default:
+        return "image0_158_4914";
+    }
+  };
+
+  const getLightFillColor = () => {
+    switch (type) {
+      case "crew":
+        return theme.palette.purple[10];
+      case "objective":
+        return theme.palette.pink[10];
+      case "pod":
+        return theme.palette.blue[30];
+      default:
+        return theme.palette.orange[10];
+    }
+  };
+
+  const getDarkFillColor = () => {
+    switch (type) {
+      case "crew":
+        return theme.palette.purple[20];
+      case "objective":
+        return theme.palette.pink[20];
+      case "pod":
+        return theme.palette.blue[40];
+      default:
+        return theme.palette.orange[20];
+    }
+  };
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="200"
+      height="12"
+      viewBox="0 0 200 12"
+      fill="none"
+    >
+      <path
+        d="M0 6C0 2.68629 2.68629 0 6 0H194C197.314 0 200 2.68629 200 6C200 9.31371 197.314 12 194 12H5.99999C2.68629 12 0 9.31371 0 6Z"
+        fill={getLightFillColor()}
+      />
+      {variant === "normal" ? (
+        <path
+          d="M0 6C0 2.68629 2.68629 0 6 0H194C197.314 0 200 2.68629 200 6C200 9.31371 197.314 12 194 12H5.99999C2.68629 12 0 9.31371 0 6Z"
+          mask="url(#mask0_158_4914)"
+          fill={getDarkFillColor()}
+        />
+      ) : null}
+      <path
+        d="M0 6C0 2.68629 2.68629 0 6 0H194C197.314 0 200 2.68629 200 6C200 9.31371 197.314 12 194 12H5.99999C2.68629 12 0 9.31371 0 6Z"
+        fill="url(#pattern0_158_4914)"
+        mask="url(#mask0_158_4914)"
+      />
+      <defs>
+        <mask id="mask0_158_4914">
+          <rect x="0" y="0" width={maskWidth} height="12" fill="white" />
+        </mask>
+        <pattern
+          id="pattern0_158_4914"
+          patternContentUnits="objectBoundingBox"
+          width="0.02"
+          height="0.333333"
+        >
+          <use
+            xlinkHref={`#${getImageId()}`}
+            transform="scale(0.00025 0.00416667)"
+          />
+        </pattern>
+        <clipPath id="clip0_158_4914">
+          <path
+            d="M0 6C0 2.68629 2.68629 0 6 0H194C197.314 0 200 2.68629 200 6C200 9.31371 197.314 12 194 12H5.99999C2.68629 12 0 9.31371 0 6Z"
+            fill="white"
+          />
+        </clipPath>
+        {variant === "striped" && type === "initiative" && (
+          <image
+            id="image0_158_4914"
+            width="80"
+            height="80"
+            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHASURBVHgB7dO5bcNAEIXhJSuRM5fo0M7dkxsx4EoEGk+CJBC8dpd7zPH+aCb9MDMEwf19vF+G6/UnhOkSBDZN4WsIQtOA9/b9+ykSUAseZnGAmvCQKEBteEgMoEY8JAJQKx7qDqgZD3UF1I6HugFawENdAK3goeaAlvBQU0BreKgZoEU81ATQKh6qDmgZD1UFtI6HqgF6wENVAL3goeKAnvBQUUBveKgYoEc8VATQKx46DegZD50C9I6HsgGJdy8LkHivkgGJNy8JkHjLogGJt14UIPG2OwQk3n67gMQ7bhOQeHGtAhIvvgUg8dKaARIvvScg8fK6ARIvv4F45xqJlx+ObyReXo/PHYPAtODh+MQBasLDLgpQGx4SA6gRD4kA1IqHugNqxkNdAbXjoW6AFvBQF0AreKg5oCU81BTQGh5qBmgRDzUBtIqHqgNaxkNVAa3joWqAHvBQFUAveKg4oCc8VBTQGx4qBugRDxUB9IqHTgN6xkOnAL3joWxA4t3LAiTeq2RA4s1LAiTesmhA4q0XBUi87Q4BibffLiDxjtsEJF5cq4DEi28BSLy0ZoDES+8JSLy8boDEy28k3rn+AUr7Hp3lF9HpAAAAAElFTkSuQmCC"
+          />
+        )}
+        {variant === "striped" && type === "crew" && (
+          <image
+            id="image0_39_2164"
+            width="80"
+            height="80"
+            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHPSURBVHgB7dPZVcMwEIVh2a80kRIojRKgAzqiBbrh0WQyJwHHmyRrmeX+T14kjc93kiEI7u315zKF6et6eQkCG8L0MQShacD7/H55FwmoBY+vhaUJj+8FpQ2PnwlJIx4/F5BWPH7XOc14/L5j2vF4Tacs4PG6DlnB47WNs4TH6xtmDY/3NMoiHu9rkFU83ls5y3i8v2LW8fiMSnnA43Mq5AWPzyqcJzw+r2De8PjMQnnE43ML5BWPzz6ZZzw+/0Te8XhGZsC7z8kIeP9nJQa853kJAW9tZmTA25obEfD2Zh8EvKP5OwEv5hs2Al7sd6wEvPgWgMBLawYIvPQegMDL6wYIvPwG4J1rBF5+9OMbA/Cyuv9zxyAwLXjXy4s4QE14dC8KUBseJQZQIx4lAlArHtUdUDMe1RVQOx7VDdACHtUF0Aoe1RzQEh7VFNAaHtUM0CIe1QTQKh5VHdAyHlUV0DoeVQ3QAx5VBdALHlUc0BMeVRTQGx5VDNAjHlUE0CsedRrQMx51CtA7HpUNCDwuCxB4fyUDAm9eEiDwlkUDAm+9KEDgbXcICLz9dgGBd9wmIPDiWgUEXnwLQOClNQMEXnoPQODldQMEXn4j8M71C+UvfqxuUFSRAAAAAElFTkSuQmCC"
+          />
+        )}
+        {variant === "striped" && type === "objective" && (
+          <image
+            id="image0_4378_23161"
+            width="80"
+            height="80"
+            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG7SURBVHgB7dPJUQMxFIRhzdzIwqERCmRCJoTFDeO2C7umZtOut/R/al2/0puC4K7vP5cwzd+3eQkSu/5+TkFoKvC+3j5EAmrBwxQHqAkPiQLUhofEAGrEQyIAteKh4YCa8dBQQO14aBigBTw0BNAKHuoOaAkPdQW0hoe6AVrEQ10AreKh5oCW8VBTQOt4qBmgBzzUBNALHqoO6AkPVQX0hoeqAXrEQ1UAveKhYkDPeKgI0DseygYk3qMsQOK9SgYk3rIkQOKtiwYk3nZRgMTb7xSQeMcdAhLvvF1A4sW1CUi8+FaAxEtrAUi89J6AxMvrDki8/CbilTUTLz98vjkQL6v/y52DxJTg3eZFHqAiPLxlASrDQ3IAFeIhGYBK8dB4QMV4aCygcjw0DtAAHhoDaAQP9Qc0hIf6AhrDQ/0ADeKhPoBG8VB7QMN4qC2gcTzUDtABHmoD6AQP1Qd0hIfqAjrDQ/UAHeKhOoBO8VA5oGM8VAboHA/lAxLvXh4g8Z6lAxJvURog8VbFAxJvszhA4u12Dki8w44BiXfaPiDxotoGJF50a0DiJbUEJF5yL0DiZfUAJF52M/HK+gP1zC9t3Xa8KgAAAABJRU5ErkJggg=="
+          />
+        )}
+        {variant === "striped" && type === "pod" && (
+          <image
+            id="image0_40_615"
+            width="80"
+            height="80"
+            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG2SURBVHgB7dK5bcNAFIThJVO34s5chOUq3JibcSIJIwESCF577zvmjyb+MFMQ3Ofv/3e4XS9BarfrzxSEpgHv7+vjIhJQCx6mOEBNeEgUoDY8JAZQIx4SAagVDw0H1IyHhgJqx0PDAC3goSGAVvBQd0BLeKgroDU81A3QIh7qAmgVDzUHtIyHmgJax0PNAD3goSaAXvBQdUBPeKgqoDc8VA3QIx6qAugVDxUDesZDRYDe8VA2IPGeZQES710yIPGWJQESb100IPG2iwIk3n6ngMQ77hCQeOftAhIvrk1A4sW3AiReWgtA4qX3AiReXg9A4uU3Ea+smXj54XxzkJoCPJxPJqASPGx5gIrwkCxAZXhIDqBCPCQDUCkeGg+oGA+NBVSOh8YBGsBDYwCN4KH+gIbwUF9AY3ioH6BBPNQH0Cgeag9oGA+1BTSOh9oBOsBDbQCd4KH6gI7wUF1AZ3ioHqBDPFQH0CkeKgd0jIfKAJ3joXxA4j3KAyTeq3RA4i1KAyTeqnhA4m0WB0i83c4BiXfYMSDxTtsHJF5U24DEi24NSLykloDES+4NSLysnoDEy24mXll3Fu7Oza6IqTsAAAAASUVORK5CYII"
+          />
+        )}
+      </defs>
+    </svg>
+  );
+};
+
+export default ProgressBar;
+
+================
+File: src/components/RAGStatusChip/index.ts
+================
+export * from "./RAGStatusChip";
+
+================
+File: src/components/RAGStatusChip/RAGStatusChip.stories.tsx
+================
+import type { Meta, StoryFn } from "@storybook/react";
+
+import { RAGStatusChip } from "./RAGStatusChip";
+
+export default {
+  title: "Components/RAGStatusChip",
+  component: RAGStatusChip,
+  args: {
+    label: "Status Label", // default label for all stories
+  },
+} as Meta<typeof RAGStatusChip>;
+
+const Template: StoryFn<typeof RAGStatusChip> = (args) => (
+  <RAGStatusChip {...args} />
+);
+
+export const Green = Template.bind({});
+Green.args = {
+  status: "green",
+  label: "Project on schedule",
+};
+
+export const Amber = Template.bind({});
+Amber.args = {
+  status: "amber",
+  label: "Minor delays",
+};
+
+export const Red = Template.bind({});
+Red.args = {
+  status: "red",
+  label: "Critical blocker",
+};
+
+// Example with custom labels
+export const CustomLabels = Template.bind({});
+CustomLabels.args = {
+  status: "green",
+  label: "All good",
+};
+
+================
+File: src/components/RAGStatusChip/RAGStatusChip.tsx
+================
+import Chip from "@mui/material/Chip";
+import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+export type RAGStatus = "green" | "red" | "amber";
+
+interface StatusConfig {
+  chipBackground: string;
+  dotColor: string;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    display: "inline-flex",
+    height: "20px", // var(--space-7, 20px)
+    padding: "0px 8px 0px 4px", // padding: top 0, right 8px, bottom 0, left 4px
+    alignItems: "center",
+    gap: "4px", // var(--space-2, 4px)
+    flexShrink: 0,
+    borderRadius: "4px", // var(--border-radius-1, 4px)
+    cursor: "pointer",
+    transition: "background-color 0.2s ease",
+    "&:hover": {
+      backgroundColor: theme.palette.neutral[20],
+    },
+  },
+  dot: {
+    width: theme.spacing(1.5), // 6px
+    height: theme.spacing(1.5), // 6px
+    borderRadius: "50%",
+  },
+  label: {
+    textAlign: "center",
+    padding: "0",
+    textTransform: "uppercase",
+    display: "flex",
+  },
+  muiIcon: {
+    marginLeft: "0 !important",
+    marginRight: "0 !important",
+    fontSize: "12px !important",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+
+interface RAGStatusChipProps {
+  status: RAGStatus;
+  label: string;
+  className?: string;
+}
+
+export const RAGStatusChip: React.FC<RAGStatusChipProps> = ({
+  status,
+  label,
+  className,
+}) => {
+  const { classes, cx } = useStyles();
+  const theme = useTheme();
+
+  const STATUS_CONFIG: Record<RAGStatus, StatusConfig> = {
+    green: {
+      chipBackground: theme.palette.green[10],
+      dotColor: theme.palette.green[20],
+    },
+    red: {
+      chipBackground: theme.palette.red[10],
+      dotColor: theme.palette.red[20],
+    },
+    amber: {
+      chipBackground: theme.palette.orange[10],
+      dotColor: theme.palette.orange[20],
+    },
+  };
+
+  const config = STATUS_CONFIG[status];
+
+  const chipLabel = (
+    <>
+      <Typography variant="caption.small" color="neutral.70">
+        {label}
+      </Typography>
+    </>
+  );
+
+  return (
+    <Chip
+      icon={
+        <div
+          className={classes.dot}
+          style={{ backgroundColor: config.dotColor }}
+        />
+      }
+      label={chipLabel}
+      className={cx(classes.root, className)}
+      classes={{ label: classes.label, icon: classes.muiIcon }}
+      style={{ backgroundColor: config.chipBackground }}
+      variant="filled"
+    />
+  );
+};
+
+================
+File: src/components/StatusChip/StatusChip.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { StatusChip } from "./StatusChip";
+
+const meta: Meta<typeof StatusChip> = {
+  title: "Components/StatusChip",
+  component: StatusChip,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof StatusChip>;
+
+export const Planned: Story = {
+  args: {
+    status: "planned",
+  },
+};
+
+export const InProgress: Story = {
+  args: {
+    status: "inProgress",
+  },
+};
+
+export const Done: Story = {
+  args: {
+    status: "done",
+  },
+};
+
+================
+File: src/components/StatusChip/StatusChip.tsx
+================
+import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
+import {
+  Calendar as CalendarIcon,
+  Check as CheckIcon,
+  Clock as ClockIcon,
+} from "iconoir-react";
+import { makeStyles } from "tss-react/mui";
+
+export type Status = "planned" | "inProgress" | "done";
+
+interface StatusChipProps {
+  status: Status;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    display: "inline-flex",
+    height: "20px", // var(--space-7, 20px)
+    padding: "0px 8px 0px 4px", // padding: top 0, right 8px, bottom 0, left 4px
+    alignItems: "center",
+    gap: "4px", // var(--space-2, 4px)
+    flexShrink: 0,
+    borderRadius: "4px", // var(--border-radius-1, 4px)
+    border: `1px solid ${theme.palette.neutral[40]}`, // var(--color-border-standard, #E4E4E4)
+    cursor: "pointer",
+    transition: "background-color 0.2s ease",
+    backgroundColor: "transparent",
+  },
+  label: {
+    textAlign: "center",
+    padding: "0",
+    display: "flex",
+    textTransform: "uppercase",
+  },
+  muiIcon: {
+    marginLeft: "0 !important",
+    marginRight: "0 !important",
+    fontSize: "12px !important",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 14,
+    height: 14,
+  },
+}));
+
+export const StatusChip: React.FC<StatusChipProps> = ({ status, ...rest }) => {
+  const { classes } = useStyles();
+
+  let icon;
+  let label;
+
+  switch (status) {
+    case "planned":
+      icon = <CalendarIcon style={{ width: 14 }} />;
+      label = "Planned";
+      break;
+    case "inProgress":
+      icon = <ClockIcon style={{ width: 14 }} />;
+      label = "In Progress";
+      break;
+    case "done":
+      icon = <CheckIcon style={{ width: 14 }} />;
+      label = "Done";
+      break;
+    default:
+      icon = null;
+      label = "";
+  }
+
+  return (
+    <Chip
+      icon={icon ? icon : undefined}
+      label={
+        <Typography variant="caption.small" color="neutral.70">
+          {label}
+        </Typography>
+      }
+      className={classes.root}
+      classes={{ icon: classes.muiIcon, label: classes.label }}
+      {...rest}
+    />
+  );
+};
+
+================
+File: src/components/StatusProgress/StatusProgress.tsx
+================
+import { Clock as ClockIcon } from "iconoir-react";
+import { makeStyles } from "tss-react/mui";
+
+import { theme } from "../../theme/theme";
+import { DateChip } from "../DateChip/DateChip";
+import { RAGStatusChip } from "../RAGStatusChip/RAGStatusChip";
+import { StatusChip } from "../StatusChip/StatusChip";
+
+const useStyles = makeStyles()({
+  root: {
+    width: 336,
+    height: 86,
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+    border: `1px solid ${theme.palette.neutral[40]}`,
+    display: "inline-flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    gap: theme.spacing(4),
+  },
+  statusBar: {
+    alignSelf: "stretch",
+    display: "inline-flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  tags: {
+    display: "flex",
+    gap: theme.spacing(2),
+    alignItems: "center",
+  },
+  progressContainer: {
+    alignSelf: "stretch",
+    display: "inline-flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: theme.spacing(5),
+  },
+  progressBar: {
+    width: 253,
+    height: 12,
+    background: theme.palette.orange[10],
+    borderRadius: 8,
+    overflow: "hidden",
+  },
+  progress: {
+    width: "75%",
+    height: 12,
+    background: theme.palette.orange[20],
+    borderRadius: 8,
+  },
+  progressText: {
+    color: theme.palette.neutral[70],
+    fontSize: 11,
+    fontWeight: 400,
+    lineHeight: theme.spacing(3.5),
+  },
+});
+
+const StatusProgress: React.FC = () => {
+  const { classes } = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <div className={classes.statusBar}>
+        <div className={classes.tags}>
+          <StatusChip
+            icon={
+              <ClockIcon
+                style={{ fontSize: 16, color: theme.palette.neutral[70] }}
+              />
+            }
+            label="In progress"
+          />
+          <RAGStatusChip status="green" label="On track" />
+        </div>
+        <DateChip date="Just now" />
+      </div>
+      <div className={classes.progressContainer}>
+        <div className={classes.progressBar}>
+          <div className={classes.progress} />
+        </div>
+        <span className={classes.progressText}>75%</span>
+      </div>
+    </div>
+  );
+};
+
+export default StatusProgress;
+
+================
+File: src/components/WorkItemSelectionCard/WorkItemSelectionCard.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { WorkItemSelectionCard } from "./WorkItemSelectionCard";
+
+const meta: Meta<typeof WorkItemSelectionCard> = {
+  title: "components/WorkItemSelectionCard",
+  component: WorkItemSelectionCard,
+  decorators: [(Story) => <Story />],
+  args: {
+    team: { id: "id1", name: "Blueprint", type: "crew" },
+    label: "Issue name",
+    date: "DD MMM YYYY",
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof WorkItemSelectionCard>;
+
+export const Default: Story = {
+  render: (args) => <WorkItemSelectionCard {...args} />,
+};
+
+================
+File: src/components/WorkItemSelectionCard/WorkItemSelectionCard.tsx
+================
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "tss-react/mui";
+
+import TeamNameChip from "../AttributeChip/AttributeChip";
+import type { CheckboxProps } from "../Checkbox/Checkbox";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { DateChip } from "../DateChip/DateChip";
+
+interface WorkItemSelectionCard {
+  label: string;
+  date?: string;
+  team?: {
+    id: string;
+    name: string;
+    type: string;
+  };
+  checkboxProps: CheckboxProps;
+}
+
+const useStyles = makeStyles<{ checked: boolean }>()((theme, { checked }) => ({
+  card: {
+    overflow: "hidden",
+    backgroundColor: checked ? theme.palette.blue["10"] : "transparent",
+  },
+  checkbox: {
+    padding: theme.spacing(0, 3),
+  },
+  cardHeader: {
+    padding: theme.spacing(5, 6, 0, 0),
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  content: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: theme.spacing(8),
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(6),
+  },
+}));
+
+export const WorkItemSelectionCard: React.FC<WorkItemSelectionCard> = ({
+  label,
+  date,
+  team,
+  checkboxProps,
+}) => {
+  const { classes } = useStyles({ checked: checkboxProps?.checked ?? false });
+
+  return (
+    <div className={classes.card}>
+      <div className={classes.cardHeader}>
+        <Checkbox className={classes.checkbox} {...checkboxProps} />
+        <Typography variant="subtitle.standard">{label}</Typography>
+      </div>
+      <div className={classes.content}>
+        {team && <TeamNameChip name={team.name} />}
+        {date && <DateChip date={date} />}
+      </div>
+    </div>
+  );
+};
+
+================
+File: src/components/WorkItemSelectionList/WorkItemSelectionList.stories.tsx
+================
+import type { Meta, StoryObj } from "@storybook/react";
+
+import { WorkItemSelectionCard } from "../WorkItemSelectionCard/WorkItemSelectionCard";
+
+import { WorkItemSelectionList } from "./WorkItemSelectionList";
+
+const meta: Meta<typeof WorkItemSelectionList> = {
+  title: "components/WorkItemSelectionList",
+  component: WorkItemSelectionList,
+  decorators: [(Story) => <Story />],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof WorkItemSelectionList>;
+
+export const Multiple: Story = {
+  render: () => (
+    <WorkItemSelectionList>
+      {[1, 2, 3].map((_, i) => (
+        <WorkItemSelectionCard
+          key={i}
+          team={{ id: "id1", name: "Blueprint", type: "crew" }}
+          label={"Issue name"}
+          date={"DD MMM YYYY"}
+          checkboxProps={{ checked: Math.random() < 0.5 }}
+        />
+      ))}
+    </WorkItemSelectionList>
+  ),
+};
+
+export const Single: Story = {
+  render: () => (
+    <WorkItemSelectionList>
+      <WorkItemSelectionCard
+        team={{ id: "id1", name: "Blueprint", type: "crew" }}
+        label={"Issue name"}
+        date={"DD MMM YYYY"}
+        checkboxProps={{ checked: Math.random() < 0.5 }}
+      />
+    </WorkItemSelectionList>
+  ),
+};
+
+export const Checked: Story = {
+  render: () => (
+    <WorkItemSelectionList>
+      {[1, 2, 3].map((_, i) => (
+        <WorkItemSelectionCard
+          key={i}
+          team={{ id: "id1", name: "Blueprint", type: "crew" }}
+          label={"Issue name"}
+          date={"DD MMM YYYY"}
+          checkboxProps={{ checked: true }}
+        />
+      ))}
+    </WorkItemSelectionList>
+  ),
+};
+
+================
+File: src/components/WorkItemSelectionList/WorkItemSelectionList.tsx
+================
+import type { ReactNode } from "react";
+import { makeStyles } from "tss-react/mui";
+
+interface WorkItemSelectionList {
+  children: ReactNode;
+}
+
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    border: `1px solid ${theme.palette.custom.border.standard}`,
+    borderRadius: theme.spacing(1),
+
+    "& > div": {
+      borderBottom: `1px solid ${theme.palette.custom.border.standard}`,
+    },
+    "& > :last-child": {
+      borderWidth: `0px`,
+    },
+  },
+}));
+
+export const WorkItemSelectionList: React.FC<WorkItemSelectionList> = ({
+  children,
+}) => {
+  const { classes } = useStyles();
+
+  return <div className={classes.root}>{children}</div>;
+};
+
+================
+File: src/global.d.ts
+================
+import "@mui/material/Typography";
+import "@mui/material/styles";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple: {
+      10: string; // color/purple/10
+      20: string; // color/purple/20
+    };
+    orange: {
+      10: string; // color/orange/10
+      20: string; // color/orange/20
+    };
+    green: {
+      10: string; // color/green/10
+      20: string; // color/green/20
+    };
+    yellow: {
+      10: string; // color/yellow/10
+      20: string; // color/yellow/20
+    };
+    brown: {
+      10: string; // color/brown/10
+    };
+    pink: {
+      10: string; // color/pink/10
+      20: string; // color/pink/20
+    };
+    blue: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+    };
+    red: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface PaletteOptions {
+    neutral: {
+      white: string;
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+      60: string;
+      70: string;
+      80: string;
+      90: string;
+      100: string;
+    };
+    purple?: {
+      10: string;
+      20: string;
+    };
+    orange?: {
+      10: string;
+      20: string;
+    };
+    green?: {
+      10: string;
+      20: string;
+    };
+    yellow?: {
+      10: string;
+      20: string;
+    };
+    brown?: {
+      10: string;
+    };
+    pink?: {
+      10: string;
+      20: string;
+    };
+    blue?: {
+      10: string;
+      20: string;
+      30: string;
+      40: string;
+      50: string;
+    };
+    red?: {
+      10: string;
+      20: string;
+      30: string;
+    };
+    custom: {
+      text: {
+        subtle: string;
+        standard: string;
+        strong: string;
+      };
+      icon: {
+        standard: string;
+      };
+      line: {
+        standard: string;
+      };
+      border: {
+        standard: string;
+        selected: string;
+      };
+      background: {
+        brand: string;
+        selected: string;
+      };
+    };
+  }
+
+  interface TypographyVariants {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    h1?: never;
+    h2?: never;
+    h3?: never;
+    h4?: never;
+    h5?: never;
+    h6?: never;
+    subtitle1?: never;
+    subtitle2?: never;
+    body1?: never;
+    body2?: never;
+    caption?: never;
+    button?: never;
+    overline?: never;
+
+    "body.standard": React.CSSProperties;
+    "body.standard.bold": React.CSSProperties;
+    "subtitle.standard": React.CSSProperties;
+    "subtitle.standard.bold": React.CSSProperties;
+    "caption.standard": React.CSSProperties;
+    "caption.small": React.CSSProperties;
+    "button.standard": React.CSSProperties;
+    "button.standard.bold": React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    // Disable default variants
+    h1: false;
+    h2: false;
+    h3: false;
+    h4: false;
+    h5: false;
+    h6: false;
+    subtitle1: false;
+    subtitle2: false;
+    body1: false;
+    body2: false;
+    caption: false;
+    button: false;
+    overline: false;
+
+    "body.standard": true;
+    "body.standard.bold": true;
+    "subtitle.standard": true;
+    "subtitle.standard.bold": true;
+    "caption.standard": true;
+    "caption.small": true;
+    "button.standard": true;
+    "button.standard.bold": true;
+  }
+}
+
+================
+File: src/icons/Logomark.svg
+================
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Logomark">
+<circle id="Circle" cx="12" cy="12" r="12" fill="#517CF5"/>
+<path id="Shape" d="M9 6.49106C9 6.21986 9.21986 6 9.49106 6H13.5C15.1569 6 16.5 7.34315 16.5 9C16.5 10.6569 15.1569 12 13.5 12H9V6.49106Z" fill="white"/>
+<path id="Shape_2" d="M9 12H13.5C15.1569 12 16.5 13.3431 16.5 15C16.5 16.6569 15.1569 18 13.5 18H9.49106C9.21986 18 9 17.7801 9 17.5089V12Z" fill="#C1D5F3"/>
+</g>
+</svg>
+
+================
+File: src/stories/Colors.stories.tsx
+================
+import Box from "@mui/material/Box";
+import { ThemeProvider } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+
+import { theme } from "../theme/theme";
+
+export default {
+  title: "Design/Colors",
+};
+
+type ColorSwatchProps = {
+  name: string;
+  colorValue: string;
+};
+
+const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, colorValue }) => (
+  <Box
+    sx={{
+      backgroundColor: colorValue,
+      width: 100,
+      height: 100,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      m: 1,
+      borderRadius: 1,
+    }}
+  >
+    <Typography
+      variant="caption.standard"
+      sx={{ color: theme.palette.neutral.white, textAlign: "center" }}
+    >
+      {name}
+      <br />
+      {colorValue}
+    </Typography>
+  </Box>
+);
+
+const ColorsStory: React.FC = () => {
+  // Manually list out the groups defined in your theme
+  const colorGroups = [
+    { key: "neutral", colors: theme.palette.neutral },
+    { key: "purple", colors: theme.palette.purple },
+    { key: "orange", colors: theme.palette.orange },
+    { key: "green", colors: theme.palette.green },
+    { key: "yellow", colors: theme.palette.yellow },
+    { key: "brown", colors: theme.palette.brown },
+    { key: "pink", colors: theme.palette.pink },
+    { key: "blue", colors: theme.palette.blue },
+    { key: "red", colors: theme.palette.red },
+  ];
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ p: 2 }}>
+        {colorGroups.map((group) => (
+          <Box key={group.key} sx={{ mb: 4 }}>
+            <Typography variant="body.standard.bold" gutterBottom>
+              {group.key.charAt(0).toUpperCase() + group.key.slice(1)}
+            </Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+              {Object.entries(group.colors).map(([shade, value]) => (
+                <ColorSwatch
+                  key={shade}
+                  name={`${group.key} ${shade}`}
+                  colorValue={value}
+                />
+              ))}
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    </ThemeProvider>
+  );
+};
+
+export const Colors = ColorsStory;
+
+================
+File: src/stories/pages/InitiativeCardPage.stories.tsx
+================
+import { BrowserRouter } from "react-router";
+import type { Meta, StoryFn } from "@storybook/react";
+
+import { InitiativeCardPage } from "../../components/Initiative/InitiativeCardPage";
+
+export default {
+  title: "Pages/Initiative Cards",
+  component: InitiativeCardPage,
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
+  parameters: {
+    layout: "fullscreen",
+  },
+} as Meta;
+
+export const Default: StoryFn = () => <InitiativeCardPage />;
+
+Default.storyName = "Initiative Cards Page";
+
+================
+File: src/stories/pages/InitiativePage.stories.tsx
+================
+import { BrowserRouter } from "react-router";
+import type { Meta, StoryFn } from "@storybook/react";
+
+import { InitiativeSetup } from "../../components/Initiative/InitiativeSetup";
+
+export default {
+  title: "Pages/Initiative Setup",
+  component: InitiativeSetup,
+  decorators: [
+    (Story) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
+  parameters: {
+    layout: "fullscreen",
+  },
+} as Meta;
+
+export const Default: StoryFn = () => <InitiativeSetup />;
+
+Default.storyName = "Initiative Setup Page";
+
+================
+File: src/stories/Typography.stories.tsx
+================
+import Box from "@mui/material/Box";
+import { ThemeProvider } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+
+import { theme } from "../theme/theme";
+
+export default {
+  title: "Design/Typography",
+};
+
+const TypographyStory: React.FC = () => {
+  // List the typography variants used in your theme
+  const variants: Array<{ variant: string; label: string }> = [
+    { variant: "body.standard", label: "Body Standard" },
+    { variant: "body.standard.bold", label: "Body Standard Bold" },
+    { variant: "subtitle.standard", label: "Subtitle Standard" },
+    { variant: "caption.standard", label: "Caption Standard" },
+    { variant: "caption.small", label: "Caption Small" },
+    { variant: "button.standard", label: "Button Standard" },
+    { variant: "button.standard.bold", label: "Button Standard Bold" },
+  ];
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ p: 2 }}>
+        {variants.map(({ variant, label }) => (
+          <Box key={variant} sx={{ mb: 2 }}>
+            <Typography variant={variant as any}>
+              {label}: The quick brown fox jumps over the lazy dog.
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+    </ThemeProvider>
+  );
+};
+
+export const TypographyVariants = TypographyStory;
+
+================
+File: src/theme/theme.ts
+================
+import { createTheme } from "@mui/material/styles";
+
+const colours = {
+  neutral: {
+    white: "#FFFFFF",
+    10: "#FAFAFA",
+    20: "#F5F5F5",
+    30: "#EAEAEA",
+    40: "#E4E4E4",
+    50: "#BABABA",
+    60: "#8C8C8C",
+    70: "#4D4D4D",
+    80: "#383838",
+    90: "#2A2A2A",
+    100: "#1C1C1C",
+  },
+  purple: {
+    10: "#DFD3F9",
+    20: "#6F30F6",
+  },
+  orange: {
+    10: "#FBECE5",
+    20: "#E07524",
+  },
+  green: {
+    10: "#E6F7F1",
+    20: "#32BA8A",
+  },
+  yellow: {
+    10: "#FFFBEB",
+    20: "#FFDB5C",
+  },
+  brown: {
+    10: "#6B4F3B",
+  },
+  pink: {
+    10: "#FFECFE",
+    20: "#FF61F9",
+  },
+  blue: {
+    10: "#F8FAFF",
+    20: "#E4F3FE",
+    30: "#CFE6FA",
+    40: "#1E99F9",
+    50: "#5E86F6",
+    60: "#517CF5",
+    70: "#4B73E3",
+  },
+  red: {
+    10: "#FFEEEB",
+    20: "#FF705C",
+    30: "#E60000",
+  },
+};
+
+export const theme = createTheme({
+  palette: {
+    ...colours,
+    custom: {
+      text: {
+        subtle: colours.neutral["60"],
+        standard: colours.neutral["70"],
+        strong: colours.neutral["100"],
+      },
+      icon: {
+        standard: colours.neutral["60"],
+      },
+      line: {
+        standard: colours.neutral["40"],
+      },
+      border: {
+        standard: colours.neutral["40"],
+        selected: colours.blue["50"],
+      },
+      background: {
+        brand: colours.blue["50"],
+        selected: colours.blue["10"],
+      },
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+  typography: {
+    fontFamily: ["Roboto Flex", "Roboto", "sans-serif"].join(","),
+
+    "body.standard": {
+      fontSize: 16,
+      fontWeight: 400,
+      lineHeight: "20px",
+      letterSpacing: 0.32,
+      wordWrap: "break-word",
+    },
+
+    "body.standard.bold": {
+      fontSize: 16,
+      fontWeight: 500,
+      lineHeight: "20px",
+      letterSpacing: 0.32,
+      wordWrap: "break-word",
+    },
+
+    "subtitle.standard": {
+      fontSize: "12px",
+      fontWeight: 400,
+      lineHeight: "16px",
+      letterSpacing: "0.24px",
+    },
+
+    "subtitle.standard.bold": {
+      fontSize: "12px",
+      fontWeight: 500,
+      lineHeight: "16px",
+      letterSpacing: "0.24px",
+    },
+
+    "caption.standard": {
+      fontSize: "11px",
+      fontWeight: 500,
+      lineHeight: "14px",
+      letterSpacing: "0.11px",
+    },
+
+    "caption.small": {
+      fontSize: "9px",
+      fontWeight: 500,
+      lineHeight: "14px",
+      letterSpacing: "0.36px",
+    },
+
+    "button.standard": {
+      fontSize: "12px",
+      fontWeight: 400,
+      textTransform: "none",
+    },
+
+    "button.standard.bold": {
+      fontSize: "12px",
+      fontWeight: 500,
+      lineHeight: "16px",
+      letterSpacing: "0.24px",
+      textTransform: "none",
+    },
+
+    emoji: {
+      fontSize: 16,
+      fontWeight: 400,
+      lineHeight: "16px",
+      width: 16,
+      height: 16,
+      letterSpacing: 0.32,
+      wordWrap: "break-word",
+    },
+  },
+  spacing: (factor: number) => {
+    const spacingValues =
+      {
+        1: 4, // 4px - quarter spacing
+        2: 6, // 6px - for tight spacing like gaps
+        3: 8, // 8px - standard padding
+        4: 12, // 12px
+        5: 16, // 16px
+        6: 20, // 20px - standard height for chips
+        7: 24, // 24px
+        8: 32, // 32px
+        9: 40, // 40px
+        10: 48, // 48px
+        11: 56, // 56px
+        12: 64, // 64px
+        13: 80, // 80px
+        14: 96, // 96px
+        15: 120, // 120px
+      }[factor] ?? factor * 4;
+
+    return `${spacingValues}px`;
+  },
+});
+
+================
+File: tsconfig.json
+================
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src", ".storybook", "global.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+
+================
+File: tsconfig.node.json
+================
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./vite.config.ts"]
+}
+
+
+
+================================================================
+End of Codebase
+================================================================
+
+</script>
