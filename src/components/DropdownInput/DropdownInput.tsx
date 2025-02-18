@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import { ContextMenu } from "../ContextMenu/ContextMenu";
+import Menu from "@mui/material/Menu";
+import Fade from "@mui/material/Fade";
 
 interface DropdownInputProps {
   value?: string;
@@ -85,19 +87,12 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   width,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
   const { classes, cx } = useStyles({ width });
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   const handleClick = () => {
     if (!disabled) {
@@ -113,8 +108,9 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   const selectedOption = options.find((option) => option.value === value);
 
   return (
-    <div className={classes.wrapper} ref={wrapperRef}>
+    <div className={classes.wrapper}>
       <div
+        ref={anchorRef}
         className={classes.dropdown}
         onClick={handleClick}
         style={{ cursor: disabled ? "not-allowed" : "pointer" }}
@@ -130,21 +126,52 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
         <DropdownIcon />
       </div>
 
-      {isOpen && !disabled && (
-        <div className={classes.contextMenuWrapper}>
-          <ContextMenu
-            width={width || 264}
-            sections={[
-              {
-                items: options.map((option) => ({
-                  label: option.label,
-                  onClick: () => handleOptionSelect(option.value),
-                })),
-              },
-            ]}
-          />
-        </div>
-      )}
+      <Menu
+        anchorEl={anchorRef.current}
+        open={isOpen}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        TransitionComponent={Fade}
+        TransitionProps={{
+          timeout: {
+            enter: 150,
+            exit: 100
+          }
+        }}
+        slotProps={{
+          paper: {
+            style: {
+              width: width || 264,
+              boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.16)",
+            },
+            sx: {
+              marginTop: "-4px",
+              "& .MuiMenu-list": {
+                padding: 0,
+              }
+            }
+          }
+        }}
+      >
+        <ContextMenu
+          width={width || 264}
+          sections={[
+            {
+              items: options.map((option) => ({
+                label: option.label,
+                onClick: () => handleOptionSelect(option.value),
+              })),
+            },
+          ]}
+        />
+      </Menu>
     </div>
   );
 };

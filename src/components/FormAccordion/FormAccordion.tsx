@@ -22,7 +22,6 @@ const useStyles = makeStyles()((theme) => ({
   },
   title: {
     flex: "1 1 0",
-    color: theme.palette.neutral[70],
     textAlign: "left",
   },
   iconButton: {
@@ -70,8 +69,9 @@ export const FormAccordion = ({
           disableRipple
         >
           <Typography
-            variant={isExpanded ? "subtitle.standard.bold" : "subtitle.standard"}
+            variant="subtitle.standard"
             className={classes.title}
+            sx={{ color: (theme) => isExpanded ? theme.palette.neutral[100] : theme.palette.neutral[40] }}
           >
             {title}
           </Typography>
