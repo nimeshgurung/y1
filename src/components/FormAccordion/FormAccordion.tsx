@@ -71,7 +71,7 @@ export const FormAccordion = ({
           <Typography
             variant="subtitle.standard"
             className={classes.title}
-            sx={{ color: (theme) => isExpanded ? theme.palette.neutral[100] : theme.palette.neutral[40] }}
+            sx={{ color: (theme) => isExpanded ? theme.palette.neutral[100] : theme.palette.neutral[60] }}
           >
             {title}
           </Typography>
